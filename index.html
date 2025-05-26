@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Oficios Judiciales Chascomús</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --dark: #f8fafc;
+            --light: #1e293b;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .form-container {
+            background-color: var(--card);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: var(--card);
+            color: var(--text);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary-light);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        .date-time-range {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .date-time-range > div {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button:hover {
+            background-color: var(--primary-light);
+        }
+
+        .search-button {
+            background-color: var(--warning);
+        }
+
+        .search-button:hover {
+            background-color: #e67e22;
+        }
+
+        .save-button {
+            background-color: var(--success);
+        }
+
+        .save-button:hover {
+            background-color: #0d9f6e;
+        }
+
+        .message {
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .error {
+            background-color: var(--error);
+            color: white;
+        }
+
+        .search-results {
+            background-color: var(--card);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border: 1px solid var(--border);
+            margin-top: 20px;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        tr:hover {
+            background-color: rgba(139, 92, 246, 0.1);
+        }
+
+        .status-entrega {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .status-rechazado {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .status-nodisponible {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .calle-periodo-group {
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .eliminar-calle {
+            background-color: var(--error) !important;
+            margin-top: 10px;
+            padding: 8px 12px !important;
+            font-size: 14px !important;
+        }
+
+        .id-simple {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .campos-extra {
+            background-color: rgba(139, 92, 246, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px dashed var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .date-time-range {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .tab-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-file-contract"></i> Sistema de Oficios Judiciales | Municipalidad de Chascomús</h1>
+        </header>
+
+        <div class="tab-container">
+            <div class="tab active" id="tabCargar">Cargar Oficio</div>
+            <div class="tab" id="tabBuscar">Buscar Oficio</div>
+        </div>
+
+        <!-- Formulario de Carga -->
+        <div class="form-container" id="formCargar">
+            <form id="oficioForm">
+                <!-- CAMPO CORREGIDO: numero_oficio en lugar de numero -->
+                <div class="form-group">
+                    <label for="numero_oficio">Número de Oficio *</label>
+                    <input type="text" id="numero_oficio" name="numero_oficio" required placeholder="IPP N°.....">
+                </div>
+
+                <div class="form-group">
+                    <label for="numero_identificacion">Número de Identificación *</label>
+                    <input type="text" id="numero_identificacion" name="numero_identificacion" required placeholder="Ej: 12345678">
+                </div>
+
+                <div class="form-group">
+                    <label for="fiscalia">Fiscalía Interviniente *</label>
+                    <select id="fiscalia" required>
+                        <option value="">Seleccione una fiscalía...</option>
+                        <option value="U.F.I N°10">U.F.I N°10</option>
+                        <option value="U.F.I N°9">U.F.I N°9</option>
+                        <option value="ESPECIALIZADA EN NARCOTRÁFICO">ESPECIALIZADA EN NARCOTRÁFICO</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="caratula">Carátula *</label>
+                    <input type="text" id="caratula" required placeholder="Ej: Robo agravado en Poblado y en Banda'">
+                </div>
+
+                <div class="form-group">
+                    <label>Calles y Períodos de Filmación *</label>
+                    <div id="calles-container">
+                        <div class="calle-periodo-group">
+                            <div class="form-group">
+                                <label>Calle(s)</label>
+                                <textarea class="calle-text" rows="2" required placeholder="Ej: Av. Lastra 1200"></textarea>
+                            </div>
+                            <div class="date-time-range">
+                                <div>
+                                    <label>Fecha Inicio</label>
+                                    <input type="date" class="fecha-inicio" required>
+                                </div>
+                                <div>
+                                    <label>Hora Inicio</label>
+                                    <input type="time" class="hora-inicio" required>
+                                </div>
+                                <div>
+                                    <label>Fecha Fin</label>
+                                    <input type="date" class="fecha-fin" required>
+                                </div>
+                                <div>
+                                    <label>Hora Fin</label>
+                                    <input type="time" class="hora-fin" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="agregar-calle" style="margin-top: 10px;">
+                        <i class="fas fa-plus"></i> Agregar otra calle
+                    </button>
+                </div>
+
+                <div class="campos-extra">
+                    <div class="form-group">
+                        <label for="camaras_aportadas">🎥 Cámaras Aportadas *</label>
+                        <textarea id="camaras_aportadas" name="camaras_aportadas" rows="3" required placeholder="Ej: Cámara 1 (Esquina A), Cámara 2 (Patrulla)"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="observaciones">📝 Observaciones</label>
+                        <textarea id="observaciones" name="observaciones" rows="2" placeholder="Detalles adicionales..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="estado_material">Estado del Material *</label>
+                    <select id="estado_material" required onchange="mostrarCamposAdicionales()">
+                        <option value="">Seleccione...</option>
+                        <option value="Entrega Normal">Entrega Normal</option>
+                        <option value="Rechazado por Irregularidades">Rechazado por Irregularidades</option>
+                        <option value="No se dispone de material">No se dispone de material</option>
+                    </select>
+                </div>
+
+                <div id="motivoRechazoGroup" class="form-group hidden">
+                    <label for="motivo_rechazo">Motivo de Rechazo *</label>
+                    <textarea id="motivo_rechazo" rows="2" placeholder="Describa las irregularidades encontradas"></textarea>
+                </div>
+
+                <div id="tipoNoDisponibleGroup" class="form-group hidden">
+                    <label for="tipo_no_disponible">Tipo de No Disponibilidad *</label>
+                    <select id="tipo_no_disponible">
+                        <option value="">Seleccione...</option>
+                        <option value="Cámara sin funcionamiento">Cámara sin funcionamiento</option>
+                        <option value="No hay cámaras">No hay cámaras</option>
+                        <option value="No se visualiza el evento">No se visualiza el evento</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="save-button"><i class="fas fa-save"></i> Guardar Oficio</button>
+            </form>
+
+            <div class="message success" id="successMessage">
+                <i class="fas fa-check-circle"></i> Oficio guardado correctamente
+            </div>
+            <div class="message error" id="errorMessage">
+                <i class="fas fa-exclamation-circle"></i> Error al guardar el oficio
+            </div>
+        </div>
+
+        <!-- Formulario de Búsqueda -->
+        <div class="form-container" id="formBuscar" style="display: none;">
+            <form id="searchForm">
+                <div class="form-group">
+                    <label for="searchNumero_oficio">Número de Oficio</label>
+                    <input type="text" id="searchNumero_oficio" name="searchNumero_oficio" placeholder="IPP N°....">
+                </div>
+
+                <div class="form-group">
+                    <label for="searchFiscalia">Fiscalía Interviniente</label>
+                    <select id="searchFiscalia">
+                        <option value="">Todas</option>
+                        <option value="U.F.I N°10">U.F.I N°10</option>
+                        <option value="U.F.I N°9">U.F.I N°9</option>
+                        <option value="ESPECIALIZADA EN NARCOTRÁFICO">ESPECIALIZADA EN NARCOTRÁFICO</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="searchCaratula">Carátula</label>
+                    <input type="text" id="searchCaratula" placeholder="Ej: 'Homicidio Culposo'">
+                </div>
+
+                <div class="form-group">
+                    <label for="searchEstado">Estado del Material</label>
+                    <select id="searchEstado">
+                        <option value="">Todos</option>
+                        <option value="Entrega Normal">Entrega Normal</option>
+                        <option value="Rechazado por Irregularidades">Rechazado por Irregularidades</option>
+                        <option value="No se dispone de material">No se dispone de material</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Rango de Fechas</label>
+                    <div class="date-time-range">
+                        <div>
+                            <label for="searchFechaDesde">Desde</label>
+                            <input type="date" id="searchFechaDesde">
+                        </div>
+                        <div>
+                            <label for="searchFechaHasta">Hasta</label>
+                            <input type="date" id="searchFechaHasta">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="search-button"><i class="fas fa-search"></i> Buscar Oficios</button>
+            </form>
+
+            <div class="message error" id="errorMessageBusqueda" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i> No se encontraron resultados
+            </div>
+
+            <div class="search-results" id="searchResults">
+                <h3>Resultados de la búsqueda</h3>
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>N° Oficio</th>
+                            <th>Identificación</th>
+                            <th>Fiscalía</th>
+                            <th>Carátula</th>
+                            <th>Fechas</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                        <!-- Resultados dinámicos -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SHEETBEST_URL = "https://api.sheetbest.com/sheets/87fb9cab-586c-4ace-ab7b-ad1a399cbee2/tabs/Reportes-Judiciales";
+
+        function generarID() {
+            const fecha = new Date();
+            const fechaStr = fecha.toISOString().slice(0, 10).replace(/-/g, '');
+            const randomHex = Math.floor(Math.random() * 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+            return `OF-${fechaStr}-${randomHex}`;
+        }
+
+        function getFechaHoraActual() {
+            const ahora = new Date();
+            const dia = ahora.getDate().toString().padStart(2, '0');
+            const mes = (ahora.getMonth() + 1).toString().padStart(2, '0');
+            const año = ahora.getFullYear();
+            const horas = ahora.getHours().toString().padStart(2, '0');
+            const minutos = ahora.getMinutes().toString().padStart(2, '0');
+            return `${dia}/${mes}/${año} ${horas}:${minutos}`;
+        }
+
+        // Cambio entre pestañas
+        const tabCargar = document.getElementById('tabCargar');
+        const tabBuscar = document.getElementById('tabBuscar');
+        const formCargar = document.getElementById('formCargar');
+        const formBuscar = document.getElementById('formBuscar');
+    
+        tabCargar.addEventListener('click', () => {
+            tabCargar.classList.add('active');
+            tabBuscar.classList.remove('active');
+            formCargar.style.display = 'block';
+            formBuscar.style.display = 'none';
+        });
+    
+        tabBuscar.addEventListener('click', () => {
+            tabBuscar.classList.add('active');
+            tabCargar.classList.remove('active');
+            formBuscar.style.display = 'block';
+            formCargar.style.display = 'none';
+        });
+    
+        function mostrarCamposAdicionales() {
+            const estado = document.getElementById('estado_material').value;
+            
+            document.getElementById('motivoRechazoGroup').classList.add('hidden');
+            document.getElementById('tipoNoDisponibleGroup').classList.add('hidden');
+    
+            if (estado === 'Rechazado por Irregularidades') {
+                document.getElementById('motivoRechazoGroup').classList.remove('hidden');
+            } else if (estado === 'No se dispone de material') {
+                document.getElementById('tipoNoDisponibleGroup').classList.remove('hidden');
+            }
+        }
+    
+        // Agregar más calles
+        document.getElementById('agregar-calle').addEventListener('click', function() {
+            const container = document.getElementById('calles-container');
+            const nuevoGrupo = document.createElement('div');
+            nuevoGrupo.className = 'calle-periodo-group';
+            
+            nuevoGrupo.innerHTML = `
+                <div class="form-group">
+                    <label>Calle(s)</label>
+                    <textarea class="calle-text" rows="2" required placeholder="Ej: Av. Corrientes 1200, entre Av. Callao y Av. Pueyrredón"></textarea>
+                </div>
+                <div class="date-time-range">
+                    <div>
+                        <label>Fecha Inicio</label>
+                        <input type="date" class="fecha-inicio" required>
+                    </div>
+                    <div>
+                        <label>Hora Inicio</label>
+                        <input type="time" class="hora-inicio" required>
+                    </div>
+                    <div>
+                        <label>Fecha Fin</label>
+                        <input type="date" class="fecha-fin" required>
+                    </div>
+                    <div>
+                        <label>Hora Fin</label>
+                        <input type="time" class="hora-fin" required>
+                    </div>
+                </div>
+                <button type="button" class="eliminar-calle">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            `;
+            
+            container.appendChild(nuevoGrupo);
+            
+            nuevoGrupo.querySelector('.eliminar-calle').addEventListener('click', function() {
+                if (confirm('¿Estás seguro de eliminar este grupo de calles?')) {
+                    nuevoGrupo.remove();
+                }
+            });
+        });
+    
+        // Envío del formulario (CON NUMERO_OFICIO CORREGIDO)
+        document.getElementById('oficioForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const estadoMaterial = document.getElementById('estado_material').value;
+            let detallesEstado = '';
+    
+            if (estadoMaterial === 'Rechazado por Irregularidades') {
+                detallesEstado = `Rechazado - Motivo: ${document.getElementById('motivo_rechazo').value}`;
+            } else if (estadoMaterial === 'No se dispone de material') {
+                detallesEstado = `No disponible - Razón: ${document.getElementById('tipo_no_disponible').value}`;
+            } else {
+                detallesEstado = estadoMaterial;
+            }
+    
+            const grupos = document.querySelectorAll('.calle-periodo-group');
+            
+            try {
+                for (const grupo of grupos) {
+                    const formData = {
+                        id: generarID(),
+                        numero_oficio: document.getElementById('numero_oficio').value, // CORRECCIÓN: numero_oficio
+                        numero_identificacion: document.getElementById('numero_identificacion').value,
+                        fiscalia: document.getElementById('fiscalia').value,
+                        caratula: document.getElementById('caratula').value,
+                        calles: grupo.querySelector('.calle-text').value,
+                        fecha_inicio: grupo.querySelector('.fecha-inicio').value,
+                        hora_inicio: grupo.querySelector('.hora-inicio').value,
+                        fecha_fin: grupo.querySelector('.fecha-fin').value,
+                        hora_fin: grupo.querySelector('.hora-fin').value,
+                        camaras_aportadas: document.getElementById('camaras_aportadas').value,
+                        observaciones: document.getElementById('observaciones').value,
+                        estado_material: detallesEstado,
+                        fecha_carga: getFechaHoraActual(),
+                        timestamp: new Date().toISOString()
+                    };
+
+                    const response = await fetch(SHEETBEST_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Error al guardar en Google Sheets');
+                    }
+                }
+
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('oficioForm').reset();
+                
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 3000);
+                
+            } catch (error) {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('errorMessage').innerHTML = `
+                    <i class="fas fa-exclamation-circle"></i> Error al guardar: ${error.message || 'Revisa la conexión'}
+                `;
+                console.error('Error:', error);
+            }
+        });
+
+        // Búsqueda de oficios
+        document.getElementById('searchForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const response = await fetch(SHEETBEST_URL);
+                if (!response.ok) throw new Error('Error al cargar datos');
+                
+                const data = await response.json();
+    
+                const searchNumero = document.getElementById('searchNumero_oficio').value.toLowerCase();
+                const searchFiscalia = document.getElementById('searchFiscalia').value;
+                const searchCaratula = document.getElementById('searchCaratula').value.toLowerCase();
+                const searchEstado = document.getElementById('searchEstado').value;
+                const searchFechaDesde = document.getElementById('searchFechaDesde').value;
+                const searchFechaHasta = document.getElementById('searchFechaHasta').value;
+    
+                const filteredData = data.filter(item => {
+                    const cumpleNumero = !searchNumero || (item.numero_oficio && item.numero_oficio.toLowerCase().includes(searchNumero));
+                    const cumpleFiscalia = !searchFiscalia || (item.fiscalia && item.fiscalia === searchFiscalia);
+                    const cumpleCaratula = !searchCaratula || (item.caratula && item.caratula.toLowerCase().includes(searchCaratula));
+                    const cumpleEstado = !searchEstado || (item.estado_material && item.estado_material.includes(searchEstado));
+                    
+                    let cumpleFecha = true;
+                    if (searchFechaDesde && item.fecha_inicio) {
+                        cumpleFecha = item.fecha_inicio >= searchFechaDesde;
+                    }
+                    if (searchFechaHasta && item.fecha_inicio) {
+                        cumpleFecha = cumpleFecha && (item.fecha_inicio <= searchFechaHasta);
+                    }
+                    
+                    return cumpleNumero && cumpleFiscalia && cumpleCaratula && cumpleEstado && cumpleFecha;
+                });
+    
+                const resultsBody = document.getElementById('resultsBody');
+                resultsBody.innerHTML = '';
+    
+                if (filteredData.length > 0) {
+                    document.getElementById('errorMessageBusqueda').style.display = 'none';
+                    document.getElementById('searchResults').style.display = 'block';
+    
+                    filteredData.forEach(item => {
+                        const row = document.createElement('tr');
+                        
+                        let estadoClass = '';
+                        if (item.estado_material && item.estado_material.includes('Entrega Normal')) {
+                            estadoClass = 'status-entrega';
+                        } else if (item.estado_material && item.estado_material.includes('Rechazado')) {
+                            estadoClass = 'status-rechazado';
+                        } else if (item.estado_material && item.estado_material.includes('No se dispone')) {
+                            estadoClass = 'status-nodisponible';
+                        }
+                        
+                        row.innerHTML = `
+                            <td class="id-simple">${item.id || 'N/A'}</td>
+                            <td>${item.numero_oficio || ''}</td>
+                            <td>${item.numero_identificacion || ''}</td>
+                            <td>${item.fiscalia || ''}</td>
+                            <td>${item.caratula || ''}</td>
+                            <td>${item.fecha_inicio || ''} ${item.hora_inicio || ''} a ${item.fecha_fin || ''} ${item.hora_fin || ''}</td>
+                            <td class="${estadoClass}">${item.estado_material || ''}</td>
+                        `;
+                        resultsBody.appendChild(row);
+                    });
+                } else {
+                    document.getElementById('errorMessageBusqueda').style.display = 'block';
+                    document.getElementById('searchResults').style.display = 'none';
+                }
+            } catch (error) {
+                document.getElementById('errorMessageBusqueda').style.display = 'block';
+                document.getElementById('errorMessageBusqueda').innerHTML = `
+                    <i class="fas fa-exclamation-circle"></i> ${error.message || 'Error en la búsqueda'}
+                `;
+                console.error('Error al buscar:', error);
+            }
+        });
+    
+        // Validaciones de fecha
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('fecha-fin')) {
+                const grupo = e.target.closest('.calle-periodo-group');
+                const fechaInicio = grupo.querySelector('.fecha-inicio').value;
+                const fechaFin = e.target.value;
+                
+                if (fechaInicio && fechaFin && fechaFin < fechaInicio) {
+                    alert('La fecha de fin no puede ser anterior a la fecha de inicio.');
+                    e.target.value = '';
+                }
+            }
+        });
+    
+        document.getElementById('searchFechaHasta').addEventListener('change', function() {
+            const fechaDesde = document.getElementById('searchFechaDesde').value;
+            const fechaHasta = this.value;
+            
+            if (fechaDesde && fechaHasta && fechaHasta < fechaDesde) {
+                alert('La fecha "Hasta" no puede ser anterior a la fecha "Desde".');
+                this.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
