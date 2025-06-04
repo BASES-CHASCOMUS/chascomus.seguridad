@@ -57,27 +57,6 @@
             gap: 10px;
         }
 
-        .tab-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab {
-            padding: 10px 20px;
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 8px 8px 0 0;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .tab.active {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
         .form-container {
             background-color: var(--card);
             border-radius: 16px;
@@ -144,20 +123,22 @@
             background-color: var(--primary-light);
         }
 
-        .search-button {
-            background-color: var(--warning);
-        }
-
-        .search-button:hover {
-            background-color: #e67e22;
-        }
-
         .save-button {
             background-color: var(--success);
         }
 
         .save-button:hover {
             background-color: #0d9f6e;
+        }
+
+        .sheets-button {
+            background-color: #34a853;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .sheets-button:hover {
+            background-color: #2d8e47;
         }
 
         .message {
@@ -176,51 +157,6 @@
         .error {
             background-color: var(--error);
             color: white;
-        }
-
-        .search-results {
-            background-color: var(--card);
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border: 1px solid var(--border);
-            margin-top: 20px;
-            display: none;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        tr:hover {
-            background-color: rgba(139, 92, 246, 0.1);
-        }
-
-        .status-entrega {
-            color: #10b981;
-            font-weight: 600;
-        }
-
-        .status-rechazado {
-            color: #ef4444;
-            font-weight: 600;
-        }
-
-        .status-nodisponible {
-            color: #f59e0b;
-            font-weight: 600;
         }
 
         .hidden {
@@ -255,14 +191,49 @@
             border: 1px dashed var(--primary);
         }
 
+        /* Estilos para el modal de éxito */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-success {
+            background-color: var(--success);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-success h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .modal-success button {
+            background-color: white;
+            color: var(--success);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         @media (max-width: 768px) {
             .date-time-range {
                 flex-direction: column;
                 gap: 10px;
-            }
-            
-            .tab-container {
-                flex-direction: column;
             }
         }
     </style>
@@ -273,15 +244,13 @@
             <h1><i class="fas fa-file-contract"></i> Sistema de Oficios Judiciales | Municipalidad de Chascomús</h1>
         </header>
 
-        <div class="tab-container">
-            <div class="tab active" id="tabCargar">Cargar Oficio</div>
-            <div class="tab" id="tabBuscar">Buscar Oficio</div>
-        </div>
-
-        <!-- Formulario de Carga -->
         <div class="form-container" id="formCargar">
             <form id="oficioForm">
-                <!-- CAMPO CORREGIDO: numero_oficio en lugar de numero -->
+    
+                <button class="sheets-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1rmxYCNVaNZM6xjUij4GcMrMrkCwyVs5Gr9mZWB4oJdc/edit?gid=1709665157#gid=1709665157', '_blank')">
+                    <i class="fab fa-google-drive"></i> Ver Hoja de Cálculo
+                </button>
+
                 <div class="form-group">
                     <label for="numero_oficio">Número de Oficio *</label>
                     <input type="text" id="numero_oficio" name="numero_oficio" required placeholder="IPP N°.....">
@@ -386,80 +355,13 @@
                 <i class="fas fa-exclamation-circle"></i> Error al guardar el oficio
             </div>
         </div>
+    </div>
 
-        <!-- Formulario de Búsqueda -->
-        <div class="form-container" id="formBuscar" style="display: none;">
-            <form id="searchForm">
-                <div class="form-group">
-                    <label for="searchNumero_oficio">Número de Oficio</label>
-                    <input type="text" id="searchNumero_oficio" name="searchNumero_oficio" placeholder="IPP N°....">
-                </div>
-
-                <div class="form-group">
-                    <label for="searchFiscalia">Fiscalía Interviniente</label>
-                    <select id="searchFiscalia">
-                        <option value="">Todas</option>
-                        <option value="U.F.I N°10">U.F.I N°10</option>
-                        <option value="U.F.I N°9">U.F.I N°9</option>
-                        <option value="ESPECIALIZADA EN NARCOTRÁFICO">ESPECIALIZADA EN NARCOTRÁFICO</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="searchCaratula">Carátula</label>
-                    <input type="text" id="searchCaratula" placeholder="Ej: 'Homicidio Culposo'">
-                </div>
-
-                <div class="form-group">
-                    <label for="searchEstado">Estado del Material</label>
-                    <select id="searchEstado">
-                        <option value="">Todos</option>
-                        <option value="Entrega Normal">Entrega Normal</option>
-                        <option value="Rechazado por Irregularidades">Rechazado por Irregularidades</option>
-                        <option value="No se dispone de material">No se dispone de material</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Rango de Fechas</label>
-                    <div class="date-time-range">
-                        <div>
-                            <label for="searchFechaDesde">Desde</label>
-                            <input type="date" id="searchFechaDesde">
-                        </div>
-                        <div>
-                            <label for="searchFechaHasta">Hasta</label>
-                            <input type="date" id="searchFechaHasta">
-                        </div>
-                    </div>
-                </div>
-
-                <button type="submit" class="search-button"><i class="fas fa-search"></i> Buscar Oficios</button>
-            </form>
-
-            <div class="message error" id="errorMessageBusqueda" style="display: none;">
-                <i class="fas fa-exclamation-circle"></i> No se encontraron resultados
-            </div>
-
-            <div class="search-results" id="searchResults">
-                <h3>Resultados de la búsqueda</h3>
-                <table id="resultsTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>N° Oficio</th>
-                            <th>Identificación</th>
-                            <th>Fiscalía</th>
-                            <th>Carátula</th>
-                            <th>Fechas</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="resultsBody">
-                        <!-- Resultados dinámicos -->
-                    </tbody>
-                </table>
-            </div>
+    <!-- Modal de éxito -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-success">
+            <h3><i class="fas fa-check-circle"></i> Evento cargado con éxito</h3>
+            <button onclick="document.getElementById('successModal').style.display = 'none'">Aceptar</button>
         </div>
     </div>
 
@@ -482,26 +384,6 @@
             const minutos = ahora.getMinutes().toString().padStart(2, '0');
             return `${dia}/${mes}/${año} ${horas}:${minutos}`;
         }
-
-        // Cambio entre pestañas
-        const tabCargar = document.getElementById('tabCargar');
-        const tabBuscar = document.getElementById('tabBuscar');
-        const formCargar = document.getElementById('formCargar');
-        const formBuscar = document.getElementById('formBuscar');
-    
-        tabCargar.addEventListener('click', () => {
-            tabCargar.classList.add('active');
-            tabBuscar.classList.remove('active');
-            formCargar.style.display = 'block';
-            formBuscar.style.display = 'none';
-        });
-    
-        tabBuscar.addEventListener('click', () => {
-            tabBuscar.classList.add('active');
-            tabCargar.classList.remove('active');
-            formBuscar.style.display = 'block';
-            formCargar.style.display = 'none';
-        });
     
         function mostrarCamposAdicionales() {
             const estado = document.getElementById('estado_material').value;
@@ -516,7 +398,6 @@
             }
         }
     
-        // Agregar más calles
         document.getElementById('agregar-calle').addEventListener('click', function() {
             const container = document.getElementById('calles-container');
             const nuevoGrupo = document.createElement('div');
@@ -559,7 +440,6 @@
             });
         });
     
-        // Envío del formulario (CON NUMERO_OFICIO CORREGIDO)
         document.getElementById('oficioForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -580,7 +460,7 @@
                 for (const grupo of grupos) {
                     const formData = {
                         id: generarID(),
-                        numero_oficio: document.getElementById('numero_oficio').value, // CORRECCIÓN: numero_oficio
+                        numero_oficio: document.getElementById('numero_oficio').value,
                         numero_identificacion: document.getElementById('numero_identificacion').value,
                         fiscalia: document.getElementById('fiscalia').value,
                         caratula: document.getElementById('caratula').value,
@@ -609,13 +489,9 @@
                     }
                 }
 
-                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('successModal').style.display = 'flex';
                 document.getElementById('errorMessage').style.display = 'none';
                 document.getElementById('oficioForm').reset();
-                
-                setTimeout(() => {
-                    document.getElementById('successMessage').style.display = 'none';
-                }, 3000);
                 
             } catch (error) {
                 document.getElementById('errorMessage').style.display = 'block';
@@ -626,84 +502,6 @@
             }
         });
 
-        // Búsqueda de oficios
-        document.getElementById('searchForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            try {
-                const response = await fetch(SHEETBEST_URL);
-                if (!response.ok) throw new Error('Error al cargar datos');
-                
-                const data = await response.json();
-    
-                const searchNumero = document.getElementById('searchNumero_oficio').value.toLowerCase();
-                const searchFiscalia = document.getElementById('searchFiscalia').value;
-                const searchCaratula = document.getElementById('searchCaratula').value.toLowerCase();
-                const searchEstado = document.getElementById('searchEstado').value;
-                const searchFechaDesde = document.getElementById('searchFechaDesde').value;
-                const searchFechaHasta = document.getElementById('searchFechaHasta').value;
-    
-                const filteredData = data.filter(item => {
-                    const cumpleNumero = !searchNumero || (item.numero_oficio && item.numero_oficio.toLowerCase().includes(searchNumero));
-                    const cumpleFiscalia = !searchFiscalia || (item.fiscalia && item.fiscalia === searchFiscalia);
-                    const cumpleCaratula = !searchCaratula || (item.caratula && item.caratula.toLowerCase().includes(searchCaratula));
-                    const cumpleEstado = !searchEstado || (item.estado_material && item.estado_material.includes(searchEstado));
-                    
-                    let cumpleFecha = true;
-                    if (searchFechaDesde && item.fecha_inicio) {
-                        cumpleFecha = item.fecha_inicio >= searchFechaDesde;
-                    }
-                    if (searchFechaHasta && item.fecha_inicio) {
-                        cumpleFecha = cumpleFecha && (item.fecha_inicio <= searchFechaHasta);
-                    }
-                    
-                    return cumpleNumero && cumpleFiscalia && cumpleCaratula && cumpleEstado && cumpleFecha;
-                });
-    
-                const resultsBody = document.getElementById('resultsBody');
-                resultsBody.innerHTML = '';
-    
-                if (filteredData.length > 0) {
-                    document.getElementById('errorMessageBusqueda').style.display = 'none';
-                    document.getElementById('searchResults').style.display = 'block';
-    
-                    filteredData.forEach(item => {
-                        const row = document.createElement('tr');
-                        
-                        let estadoClass = '';
-                        if (item.estado_material && item.estado_material.includes('Entrega Normal')) {
-                            estadoClass = 'status-entrega';
-                        } else if (item.estado_material && item.estado_material.includes('Rechazado')) {
-                            estadoClass = 'status-rechazado';
-                        } else if (item.estado_material && item.estado_material.includes('No se dispone')) {
-                            estadoClass = 'status-nodisponible';
-                        }
-                        
-                        row.innerHTML = `
-                            <td class="id-simple">${item.id || 'N/A'}</td>
-                            <td>${item.numero_oficio || ''}</td>
-                            <td>${item.numero_identificacion || ''}</td>
-                            <td>${item.fiscalia || ''}</td>
-                            <td>${item.caratula || ''}</td>
-                            <td>${item.fecha_inicio || ''} ${item.hora_inicio || ''} a ${item.fecha_fin || ''} ${item.hora_fin || ''}</td>
-                            <td class="${estadoClass}">${item.estado_material || ''}</td>
-                        `;
-                        resultsBody.appendChild(row);
-                    });
-                } else {
-                    document.getElementById('errorMessageBusqueda').style.display = 'block';
-                    document.getElementById('searchResults').style.display = 'none';
-                }
-            } catch (error) {
-                document.getElementById('errorMessageBusqueda').style.display = 'block';
-                document.getElementById('errorMessageBusqueda').innerHTML = `
-                    <i class="fas fa-exclamation-circle"></i> ${error.message || 'Error en la búsqueda'}
-                `;
-                console.error('Error al buscar:', error);
-            }
-        });
-    
-        // Validaciones de fecha
         document.addEventListener('change', function(e) {
             if (e.target.classList.contains('fecha-fin')) {
                 const grupo = e.target.closest('.calle-periodo-group');
@@ -714,16 +512,6 @@
                     alert('La fecha de fin no puede ser anterior a la fecha de inicio.');
                     e.target.value = '';
                 }
-            }
-        });
-    
-        document.getElementById('searchFechaHasta').addEventListener('change', function() {
-            const fechaDesde = document.getElementById('searchFechaDesde').value;
-            const fechaHasta = this.value;
-            
-            if (fechaDesde && fechaHasta && fechaHasta < fechaDesde) {
-                alert('La fecha "Hasta" no puede ser anterior a la fecha "Desde".');
-                this.value = '';
             }
         });
     </script>
