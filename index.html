@@ -1,713 +1,425 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang=es>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Oficios Judiciales Chascomús</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <style>
-        :root {
-            --primary: #8b5cf6;
-            --primary-light: #a78bfa;
-            --dark: #f8fafc;
-            --light: #1e293b;
-            --gray: #64748b;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f8fafc;
-            --border: #334155;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: var(--primary);
-            font-size: 28px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .alert-panel {
-            background-color: var(--warning);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
-        }
-        
-        .review-badge {
-            background-color: var(--error);
-            color: white;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-
-        .form-container {
-            background-color: var(--card);
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            border: 1px solid var(--border);
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 16px;
-            background-color: var(--card);
-            color: var(--text);
-        }
-
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--primary-light);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
-        }
-
-        .date-time-range {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .date-time-range > div {
-            flex: 1;
-            min-width: 150px;
-        }
-
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        button:hover {
-            background-color: var(--primary-light);
-        }
-
-        .save-button {
-            background-color: var(--success);
-        }
-
-        .save-button:hover {
-            background-color: #0d9f6e;
-        }
-
-        .sheets-button {
-            background-color: #34a853;
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        .sheets-button:hover {
-            background-color: #2d8e47;
-        }
-
-        .message {
-            padding: 16px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: center;
-            display: none;
-        }
-
-        .success {
-            background-color: var(--success);
-            color: white;
-        }
-
-        .error {
-            background-color: var(--error);
-            color: white;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .calle-periodo-group {
-            margin-bottom: 15px;
-            border: 1px solid var(--border);
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .eliminar-calle {
-            background-color: var(--error) !important;
-            margin-top: 10px;
-            padding: 8px 12px !important;
-            font-size: 14px !important;
-        }
-
-        .id-simple {
-            font-family: monospace;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .campos-extra {
-            background-color: rgba(139, 92, 246, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            border: 1px dashed var(--primary);
-        }
-
-        .field-alert {
-            position: absolute;
-            bottom: -20px;
-            left: 0;
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            display: none;
-        }
-
-        .alert-warning {
-            background-color: var(--warning);
-            color: white;
-        }
-
-        .alert-error {
-            background-color: var(--error);
-            color: white;
-        }
-
-        .has-warning {
-            border-color: var(--warning) !important;
-        }
-
-        .has-error {
-            border-color: var(--error) !important;
-        }
-
-        /* Modal de éxito */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-success {
-            background-color: var(--success);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-success h3 {
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .modal-success button {
-            background-color: white;
-            color: var(--success);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .date-time-range {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .alert-panel {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-    </style>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>⚖️ Sistema de Registro Judicial</title>
+<style>
+:root{--primary:#8b5cf6;--primary-light:#a78bfa;--dark:#f8fafc;--light:#1e293b;--gray:#64748b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--bg:#0f172a;--card:#1e293b;--text:#f8fafc;--border:#334155}*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}body{background-color:var(--bg);color:var(--text);min-height:100vh;padding:20px}.container{max-width:1200px;margin:0 auto}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}h1{color:var(--primary);font-size:28px;font-weight:700;display:flex;align-items:center;gap:10px}.alert-panel{background-color:var(--warning);color:white;padding:15px;border-radius:8px;margin-bottom:20px;display:flex;align-items:center;gap:10px;animation:pulse 2s infinite}@keyframes pulse{0%{opacity:1}50%{opacity:.8}100%{opacity:1}}.review-badge{background-color:var(--error);color:white;border-radius:50%;width:25px;height:25px;display:flex;align-items:center;justify-content:center;font-weight:700;margin-left:10px}.form-container{background-color:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.1);padding:30px;border:1px solid var(--border);margin-bottom:30px}.form-group{margin-bottom:20px;position:relative}label{display:block;margin-bottom:8px;font-weight:500;color:var(--text)}input,textarea,select{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:8px;font-size:16px;background-color:var(--card);color:var(--text);transition:all 0.3s ease}input:focus,textarea:focus,select:focus{border-color:var(--primary-light);outline:none;box-shadow:0 0 0 3px rgba(139,92,246,0.2)}.date-time-range{display:flex;gap:16px;flex-wrap:wrap}.date-time-range>div{flex:1;min-width:150px}button{background-color:var(--primary);color:white;border:none;padding:14px 24px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.3s ease;box-shadow:0 4px 6px rgba(0,0,0,0.1)}button:hover{transform:translateY(-2px);box-shadow:0 6px 10px rgba(0,0,0,0.2);opacity:0.9}.save-button{background-color:var(--success)}.save-button:hover{background-color:#0d9f6e}.sheets-button{background-color:#34a853;margin-bottom:20px;width:100%}.sheets-button:hover{background-color:#2d8e47}.message{padding:16px;border-radius:8px;margin-top:20px;text-align:center;display:none}.success{background-color:var(--success);color:white}.error{background-color:var(--error);color:white}.hidden{display:none}.calle-periodo-group{margin-bottom:15px;border:1px solid var(--border);padding:15px;border-radius:8px;transition:all 0.3s ease}.calle-periodo-group:hover{border-color:var(--primary-light)}.eliminar-calle{background-color:var(--error)!important;margin-top:10px;padding:8px 12px!important;font-size:14px!important}.eliminar-calle:hover{background-color:#dc2626!important}.campos-extra{background-color:rgba(139,92,246,0.1);padding:15px;border-radius:8px;margin-top:20px;border:1px dashed var(--primary);transition:all 0.3s ease}.campos-extra:hover{border-color:var(--primary-light)}.field-alert{position:absolute;bottom:-20px;left:0;font-size:12px;padding:4px 8px;border-radius:4px;display:none;transition:all 0.3s ease}.alert-warning{background-color:var(--warning);color:white}.alert-error{background-color:var(--error);color:white}.has-warning{border-color:var(--warning)!important}.has-error{border-color:var(--error)!important}.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:center}.modal-success{background-color:var(--success);padding:30px;border-radius:10px;text-align:center;max-width:400px;width:90%;box-shadow:0 5px 15px rgba(0,0,0,0.3)}@media (max-width:768px){.date-time-range{flex-direction:column;gap:10px}.alert-panel{flex-direction:column;align-items:flex-start}}
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel=stylesheet>
 </head>
 <body>
-    <div class="container">
-        <div id="reviewAlert" class="alert-panel hidden" onclick="window.open('https://docs.google.com/spreadsheets/d/1rmxYCNVaNZM6xjUij4GcMrMrkCwyVs5Gr9mZWB4oJdc/edit?gid=1709665157#gid=1709665157&filter=numero_oficio:~%23', '_blank')" style="cursor: pointer;">
-            <i class="fas fa-exclamation-triangle"></i>
-            <span>Casos con # pendientes de revisión: </span>
-            <span id="pendingCasesCount" class="review-badge">0</span>
-            <span style="margin-left: auto; font-size: 0.9em;">(Click para ver)</span>
-        </div>
+<div class=container>
+<div id=reviewAlert class="alert-panel hidden" onclick='window.open("https://docs.google.com/spreadsheets/d/1rmxYCNVaNZM6xjUij4GcMrMrkCwyVs5Gr9mZWB4oJdc/edit?gid=1709665157#gid=1709665157&filter=numero_oficio:~%23","_blank")' style="cursor:pointer">
+<i class="fas fa-exclamation-triangle"></i>
+<span>Casos Pendientes de Revisión: </span>
+<span id=pendingCasesCount class=review-badge>0</span>
+<span style="margin-left:auto;font-size:.9em">(Click para ver)</span>
+</div>
 
-        <header>
-            <h1><i class="fas fa-file-contract"></i> Sistema de Oficios Judiciales | Municipalidad de Chascomús</h1>
-        </header>
+<header>
+<h1><i class="fas fa-file-contract"></i> Sistema de Registro Judicial | Municipio de Chascomús</h1>
+</header>
 
-        <div class="form-container" id="formCargar">
-            <form id="oficioForm">
+<div class=form-container id=formCargar>
+<form id=oficioForm>
+<button type=button class=sheets-button onclick='window.open("https://docs.google.com/spreadsheets/d/1rmxYCNVaNZM6xjUij4GcMrMrkCwyVs5Gr9mZWB4oJdc/edit?gid=1709665157#gid=1709665157","_blank")'>
+<i class="fab fa-google-drive"></i> Ver Hoja de calculo
+</button>
+
+<div class=form-group>
+<label for=numero_oficio>N° de Oficio *</label>
+<input type=text id=numero_oficio required placeholder="IPP N°.....">
+<div id=numero_oficio_alert class="field-alert alert-warning">
+<i class="fas fa-exclamation-triangle"></i>  Este Oficio se cargará de forma provisoria y se contabilizará en el alerta (#). Recuerda actualizarlo luego.
+</div>
+</div>
+
+<div class=form-group>
+<label for=numero_identificacion>N° Unico de Identificación *</label>
+<input type=text id=numero_identificacion required placeholder="Ej: IPP N°...">
+<div id=numero_identificacion_alert class="field-alert alert-error">
+<i class="fas fa-times-circle"></i>  Este número ya existe en el sistema.
+
+</div>
+</div>
+
+<div class=form-group>
+<label for=fiscalia>Fiscalía Interviniente *</label>
+<select id=fiscalia required onchange=mostrarCampoOtraFiscalia()>
+<option value="">Seleccione...</option>
+<option value="U.F.I N°10">U.F.I N°10</option>
+<option value="U.F.I N°9">U.F.I N°9</option>
+<option value="ESPECIALIZADA EN NARCOTRÁFICO">ESP. NARCOTRÁFICO</option>
+<option value=OTRO>OTRO (Especificar)</option>
+</select>
+</div>
+
+<div id=otraFiscaliaGroup class="form-group hidden">
+<label for=otra_fiscalia>Especifique *</label>
+<input type=text id=otra_fiscalia placeholder="Ej: FISCALÍA GENERAL">
+</div>
+
+<div class=form-group>
+<label for=caratula>Carátula *</label>
+<input type=text id=caratula required placeholder="Ej: Robo agravado">
+</div>
+
+<div class=form-group>
+<label>Calles y Períodos Solicitados *</label>
+<div id=calles-container>
+<div class=calle-periodo-group>
+<div class=form-group>
+<label>Calle(s)</label>
+<textarea class=calle-text rows=2 required placeholder="Ej: Av. Lastra 1200"></textarea>
+</div>
+<div class=date-time-range>
+<div>
+<label>Fecha Inicio</label>
+<input type=date class=fecha-inicio required>
+</div>
+<div>
+<label>Hora Inicio</label>
+<input type=time class=hora-inicio required>
+</div>
+<div>
+<label>Fecha Fin</label>
+<input type=date class=fecha-fin required>
+</div>
+<div>
+<label>Hora Fin</label>
+<input type=time class=hora-fin required>
+</div>
+</div>
+</div>
+</div>
+<button type=button id=agregar-calle style="margin-top:10px">
+<i class="fas fa-plus"></i> Agregar otra calle
+</button>
+</div>
+
+<div class=campos-extra>
+<div class=form-group>
+<label for=camaras_aportadas>🎥 Cámaras Aportadas  *</label>
+<textarea id=camaras_aportadas rows=3 required placeholder="Códigos de cámaras"></textarea>
+</div>
+<div class=form-group>
+<label for=observaciones>📝 Observaciones</label>
+<textarea id=observaciones rows=2 placeholder="Detalles..."></textarea>
+</div>
+</div>
+
+<div class=form-group>
+<label for=estado_material>Estado del Material Filmico       *</label>
+<select id=estado_material required onchange=mostrarCamposEstado()>
+<option value="">Seleccione...</option>
+<option value="Entrega Normal">Entrega Normal</option>
+<option value="Rechazado por Irregularidades">Rechazado</option>
+<option value="No se dispone de material"> Material No disponible</option>
+</select>
+</div>
+
+<div id=motivoRechazoGroup class="form-group hidden">
+<label for=motivo_rechazo>Motivo de Rechazo *</label>
+<textarea id=motivo_rechazo rows=2 placeholder="Irregularidades..."></textarea>
+</div>
+
+<div id=tipoNoDisponibleGroup class="form-group hidden">
+<label for=tipo_no_disponible>Tipo *</label>
+<select id=tipo_no_disponible>
+<option value="">Seleccione...</option>
+<option value="Cámara sin funcionamiento">Cámara sin funcionamiento</option>
+<option value="No hay cámaras">Sin cámaras</option>
+<option value="No se visualiza el evento">No se visualiza el evento</option>
+</select>
+</div>
+
+<button type=submit class=save-button><i class="fas fa-save"></i> Guardar</button>
+</form>
+<div class="message success" id=successMessage>
+<i class="fas fa-check-circle"></i> Oficio guardado
+</div>
+<div class="message error" id=errorMessage>
+<i class="fas fa-exclamation-circle"></i> Error al guardar
+</div>
+</div>
+</div>
+
+<div id=successModal class=modal-overlay>
+<div class=modal-success>
+<h3><i class="fas fa-check-circle"></i> ¡Éxito!</h3>
+<button onclick="document.getElementById('successModal').style.display='none'">Aceptar</button>
+</div>
+</div>
+
+<script>
+const SHEETBEST_URL="https://api.sheetbest.com/sheets/87fb9cab-586c-4ace-ab7b-ad1a399cbee2/tabs/Reportes-Judiciales";
+let existingData=[];
+let pendingCases=0;
+
+document.addEventListener("DOMContentLoaded",async()=>{
+    try{
+        const response=await fetch(SHEETBEST_URL);
+        existingData=await response.json();
+        updatePendingCases();
+        setupFieldMonitoring();
+    }catch(error){
+        console.error("Error:",error);
+        document.getElementById("errorMessage").style.display="block";
+    }
+});
+
+function mostrarCampoOtraFiscalia(){
+    const fiscaliaSelect=document.getElementById("fiscalia");
+    const otraFiscaliaGroup=document.getElementById("otraFiscaliaGroup");
     
-                <button type="button" class="sheets-button" onclick="window.open('https://docs.google.com/spreadsheets/d/1rmxYCNVaNZM6xjUij4GcMrMrkCwyVs5Gr9mZWB4oJdc/edit?gid=1709665157#gid=1709665157', '_blank')">
-                    <i class="fab fa-google-drive"></i> Ver Hoja de Cálculo
-                </button>
+    if(fiscaliaSelect.value==="OTRO"){
+        otraFiscaliaGroup.classList.remove("hidden");
+        document.getElementById("otra_fiscalia").required=true;
+    }else{
+        otraFiscaliaGroup.classList.add("hidden");
+        document.getElementById("otra_fiscalia").required=false;
+    }
+}
 
-                <div class="form-group">
-                    <label for="numero_oficio">Número de Oficio *</label>
-                    <input type="text" id="numero_oficio" name="numero_oficio" required placeholder="IPP N°.....">
-                    <div id="numero_oficio_alert" class="field-alert alert-warning">
-                        <i class="fas fa-exclamation-triangle"></i> Este Oficio se cargará de forma provisoria y se contabilizará en el alerta (#). Recuerda actualizarlo luego.
-                    </div>
-                </div>
+function mostrarCamposEstado(){
+    const estado=document.getElementById("estado_material").value;
+    
+    document.getElementById("motivoRechazoGroup").classList.add("hidden");
+    document.getElementById("tipoNoDisponibleGroup").classList.add("hidden");
 
-                <div class="form-group">
-                    <label for="numero_identificacion">Número de Identificación *</label>
-                    <input type="text" id="numero_identificacion" name="numero_identificacion" required placeholder="Ej: 12345678">
-                    <div id="numero_identificacion_alert" class="field-alert alert-error">
-                        <i class="fas fa-times-circle"></i> Este número ya existe en el sistema.
-                    </div>
-                </div>
+    if(estado==="Rechazado por Irregularidades"){
+        document.getElementById("motivoRechazoGroup").classList.remove("hidden");
+    }else if(estado==="No se dispone de material"){
+        document.getElementById("tipoNoDisponibleGroup").classList.remove("hidden");
+    }
+}
 
-                <div class="form-group">
-                    <label for="fiscalia">Fiscalía Interviniente *</label>
-                    <select id="fiscalia" required onchange="mostrarCampoOtraFiscalia()">
-                        <option value="">Seleccione una fiscalía...</option>
-                        <option value="U.F.I N°10">U.F.I N°10</option>
-                        <option value="U.F.I N°9">U.F.I N°9</option>
-                        <option value="ESPECIALIZADA EN NARCOTRÁFICO">ESPECIALIZADA EN NARCOTRÁFICO</option>
-                        <option value="OTRO">OTRO (Especificar)</option>
-                    </select>
-                </div>
+function updatePendingCases(){
+    pendingCases=existingData.filter(item=>
+        item.numero_oficio&&item.numero_oficio.includes("#")
+    ).length;
+    
+    const alertPanel=document.getElementById("reviewAlert");
+    const countBadge=document.getElementById("pendingCasesCount");
+    
+    countBadge.textContent=pendingCases;
+    
+    if(pendingCases>0){
+        alertPanel.classList.remove("hidden");
+    }else{
+        alertPanel.classList.add("hidden");
+    }
+}
 
-                <div id="otraFiscaliaGroup" class="form-group hidden">
-                    <label for="otra_fiscalia">Especifique la Fiscalía *</label>
-                    <input type="text" id="otra_fiscalia">
-                </div>
+function setupFieldMonitoring() {
+    const numeroOficioInput = document.getElementById("numero_oficio");
+    const numeroOficioAlert = document.getElementById("numero_oficio_alert");
+    
+    numeroOficioInput.addEventListener("input", function() {
+        if (this.value.includes("#")) {
+            this.classList.add("has-warning");
+            numeroOficioAlert.style.display = "block";
+        } else {
+            this.classList.remove("has-warning");
+            numeroOficioAlert.style.display = "none";
+        }
+    });
 
-                <div class="form-group">
-                    <label for="caratula">Carátula *</label>
-                    <input type="text" id="caratula" required placeholder="Ej: Robo agravado en Poblado y en Banda'">
-                </div>
+    const numeroIdInput = document.getElementById("numero_identificacion");
+    const numeroIdAlert = document.getElementById("numero_identificacion_alert");
+    
+    numeroIdInput.addEventListener("input", function() {
+        if (this.value.length >= 1) { 
+            checkForDuplicateId();
+        } else {
 
-                <div class="form-group">
-                    <label>Calles y Períodos de Filmación *</label>
-                    <div id="calles-container">
-                        <div class="calle-periodo-group">
-                            <div class="form-group">
-                                <label>Calle(s)</label>
-                                <textarea class="calle-text" rows="2" required placeholder="Ej: Av. Lastra 1200"></textarea>
-                            </div>
-                            <div class="date-time-range">
-                                <div>
-                                    <label>Fecha Inicio</label>
-                                    <input type="date" class="fecha-inicio" required>
-                                </div>
-                                <div>
-                                    <label>Hora Inicio</label>
-                                    <input type="time" class="hora-inicio" required>
-                                </div>
-                                <div>
-                                    <label>Fecha Fin</label>
-                                    <input type="date" class="fecha-fin" required>
-                                </div>
-                                <div>
-                                    <label>Hora Fin</label>
-                                    <input type="time" class="hora-fin" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" id="agregar-calle" style="margin-top: 10px;">
-                        <i class="fas fa-plus"></i> Agregar otra calle
-                    </button>
-                </div>
+            numeroIdInput.classList.remove("has-error");
+            numeroIdAlert.style.display = "none";
+        }
+    });
+}
 
-                <div class="campos-extra">
-                    <div class="form-group">
-                        <label for="camaras_aportadas">🎥 Cámaras Aportadas *</label>
-                        <textarea id="camaras_aportadas" name="camaras_aportadas" rows="3" required placeholder="Ej: Ingresar codigo de camaras aportadas"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="observaciones">📝 Observaciones</label>
-                        <textarea id="observaciones" name="observaciones" rows="2" placeholder="Detalles adicionales..."></textarea>
-                    </div>
-                </div>
+function checkForDuplicateId(){
+    const numeroIdInput=document.getElementById("numero_identificacion");
+    const numeroIdAlert=document.getElementById("numero_identificacion_alert");
+    const idValue=numeroIdInput.value;
+    
+    if(!idValue) return false;
+    
+    const isDuplicate=existingData.some(item=>item.numero_identificacion===idValue);
+    
+    if(isDuplicate){
+        numeroIdInput.classList.add("has-error");
+        numeroIdAlert.style.display="block";
+        return true;
+    }else{
+        numeroIdInput.classList.remove("has-error");
+        numeroIdAlert.style.display="none";
+        return false;
+    }
+}
 
-                <div class="form-group">
-                    <label for="estado_material">Estado del Material *</label>
-                    <select id="estado_material" required onchange="mostrarCamposAdicionales()">
-                        <option value="">Seleccione...</option>
-                        <option value="Entrega Normal">Entrega Normal</option>
-                        <option value="Rechazado por Irregularidades">Rechazado por Irregularidades</option>
-                        <option value="No se dispone de material">No se dispone de material</option>
-                    </select>
-                </div>
+function generarID(){
+    const fecha=new Date();
+    const fechaStr=fecha.toISOString().slice(0,10).replace(/-/g,"");
+    const randomHex=Math.floor(Math.random()*0xFFFF).toString(16).toUpperCase().padStart(4,"0");
+    return `OF-${fechaStr}-${randomHex}`;
+}
 
-                <div id="motivoRechazoGroup" class="form-group hidden">
-                    <label for="motivo_rechazo">Motivo de Rechazo *</label>
-                    <textarea id="motivo_rechazo" rows="2" placeholder="Describa las irregularidades encontradas"></textarea>
-                </div>
+function getFechaHoraActual(){
+    const ahora=new Date();
+    const dia=ahora.getDate().toString().padStart(2,"0");
+    const mes=(ahora.getMonth()+1).toString().padStart(2,"0");
+    const año=ahora.getFullYear();
+    const horas=ahora.getHours().toString().padStart(2,"0");
+    const minutos=ahora.getMinutes().toString().padStart(2,"0");
+    return `${dia}/${mes}/${año} ${horas}:${minutos}`;
+}
 
-                <div id="tipoNoDisponibleGroup" class="form-group hidden">
-                    <label for="tipo_no_disponible">Tipo de No Disponibilidad *</label>
-                    <select id="tipo_no_disponible">
-                        <option value="">Seleccione...</option>
-                        <option value="Cámara sin funcionamiento">Cámara sin funcionamiento</option>
-                        <option value="No hay cámaras">No hay cámaras</option>
-                        <option value="No se visualiza el evento">No se visualiza el evento</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="save-button"><i class="fas fa-save"></i> Guardar Oficio</button>
-            </form>
-
-            <div class="message success" id="successMessage">
-                <i class="fas fa-check-circle"></i> Oficio guardado correctamente
+document.getElementById("agregar-calle").addEventListener("click",function(){
+    const container=document.getElementById("calles-container");
+    const nuevoGrupo=document.createElement("div");
+    nuevoGrupo.className="calle-periodo-group";
+    
+    nuevoGrupo.innerHTML=`
+        <div class=form-group>
+            <label>Calle(s)</label>
+            <textarea class=calle-text rows=2 required placeholder="Ej: Av. Corrientes 1200"></textarea>
+        </div>
+        <div class=date-time-range>
+            <div>
+                <label>Fecha Inicio</label>
+                <input type=date class=fecha-inicio required>
             </div>
-            <div class="message error" id="errorMessage">
-                <i class="fas fa-exclamation-circle"></i> Error al guardar el oficio
+            <div>
+                <label>Hora Inicio</label>
+                <input type=time class=hora-inicio required>
+            </div>
+            <div>
+                <label>Fecha Fin</label>
+                <input type=date class=fecha-fin required>
+            </div>
+            <div>
+                <label>Hora Fin</label>
+                <input type=time class=hora-fin required>
             </div>
         </div>
-    </div>
-
-    <div id="successModal" class="modal-overlay">
-        <div class="modal-success">
-            <h3><i class="fas fa-check-circle"></i> Evento cargado con éxito</h3>
-            <button onclick="document.getElementById('successModal').style.display = 'none'">Aceptar</button>
-        </div>
-    </div>
-
-    <script>
-        const SHEETBEST_URL = "https://api.sheetbest.com/sheets/87fb9cab-586c-4ace-ab7b-ad1a399cbee2/tabs/Reportes-Judiciales";
-        let existingData = [];
-        let pendingCases = 0;
-
-        document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                const response = await fetch(SHEETBEST_URL);
-                existingData = await response.json();
-                updatePendingCases();
-                setupFieldMonitoring();
-            } catch (error) {
-                console.error("Error al cargar datos:", error);
-                document.getElementById('errorMessage').textContent = "Error al cargar datos existentes. Recarga la página.";
-                document.getElementById('errorMessage').style.display = 'block';
-            }
-        });
-
-        function mostrarCampoOtraFiscalia() {
-            const fiscaliaSelect = document.getElementById('fiscalia');
-            const otraFiscaliaGroup = document.getElementById('otraFiscaliaGroup');
-            
-            if (fiscaliaSelect.value === "OTRO") {
-                otraFiscaliaGroup.classList.remove('hidden');
-                document.getElementById('otra_fiscalia').required = true;
-            } else {
-                otraFiscaliaGroup.classList.add('hidden');
-                document.getElementById('otra_fiscalia').required = false;
-            }
+        <button type=button class=eliminar-calle>
+            <i class="fas fa-trash"></i> Eliminar
+        </button>
+    `;
+    
+    container.appendChild(nuevoGrupo);
+    
+    nuevoGrupo.querySelector(".eliminar-calle").addEventListener("click",function(){
+        if(confirm("¿Eliminar grupo?")){
+            nuevoGrupo.remove();
         }
+    });
+});
 
-        function updatePendingCases() {
-            pendingCases = existingData.filter(item => 
-                item.numero_oficio && item.numero_oficio.includes('#')
-            ).length;
-            
-            const alertPanel = document.getElementById('reviewAlert');
-            const countBadge = document.getElementById('pendingCasesCount');
-            
-            countBadge.textContent = pendingCases;
-            
-            if (pendingCases > 0) {
-                alertPanel.classList.remove('hidden');
-            } else {
-                alertPanel.classList.add('hidden');
-            }
+document.getElementById("oficioForm").addEventListener("submit",async function(e){
+    e.preventDefault();
+    
+    if(checkForDuplicateId()){
+        alert("Error: N° de ID duplicado");
+        document.getElementById("numero_identificacion").focus();
+        return;
+    }
+    
+    const fiscaliaSelect=document.getElementById("fiscalia");
+    let fiscaliaValue=fiscaliaSelect.value;
+    
+    if(fiscaliaValue==="OTRO"){
+        const otraFiscalia=document.getElementById("otra_fiscalia").value.trim();
+        if(!otraFiscalia){
+            alert("Debe especificar la fiscalía");
+            return;
         }
+        fiscaliaValue=`OTRO: ${otraFiscalia}`;
+    }
+    
+    const estadoMaterial=document.getElementById("estado_material").value;
+    let detallesEstado="";
+    
+    if(estadoMaterial==="Rechazado por Irregularidades"){
+        detallesEstado=`Rechazado: ${document.getElementById("motivo_rechazo").value}`;
+    }else if(estadoMaterial==="No se dispone de material"){
+        detallesEstado=`No disponible: ${document.getElementById("tipo_no_disponible").value}`;
+    }else{
+        detallesEstado=estadoMaterial;
+    }
+    
+    const grupos=document.querySelectorAll(".calle-periodo-group");
+    
+    try{
+        for(const grupo of grupos){
+            const formData={
+                id:generarID(),
+                numero_oficio:document.getElementById("numero_oficio").value,
+                numero_identificacion:document.getElementById("numero_identificacion").value,
+                fiscalia:fiscaliaValue,
+                caratula:document.getElementById("caratula").value,
+                calles:grupo.querySelector(".calle-text").value,
+                fecha_inicio:grupo.querySelector(".fecha-inicio").value,
+                hora_inicio:grupo.querySelector(".hora-inicio").value,
+                fecha_fin:grupo.querySelector(".fecha-fin").value,
+                hora_fin:grupo.querySelector(".hora-fin").value,
+                camaras_aportadas:document.getElementById("camaras_aportadas").value,
+                observaciones:document.getElementById("observaciones").value,
+                estado_material:detallesEstado,
+                fecha_carga:getFechaHoraActual(),
+                timestamp:new Date().toISOString()
+            };
 
-        function setupFieldMonitoring() {
-
-            const numeroOficioInput = document.getElementById('numero_oficio');
-            const numeroOficioAlert = document.getElementById('numero_oficio_alert');
-            
-            numeroOficioInput.addEventListener('input', function() {
-                if (this.value.includes('#')) {
-                    this.classList.add('has-warning');
-                    numeroOficioAlert.style.display = 'block';
-                } else {
-                    this.classList.remove('has-warning');
-                    numeroOficioAlert.style.display = 'none';
-                }
+            const response=await fetch(SHEETBEST_URL,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(formData)
             });
 
-            const numeroIdInput = document.getElementById('numero_identificacion');
-            const numeroIdAlert = document.getElementById('numero_identificacion_alert');
-            
-            numeroIdInput.addEventListener('blur', checkForDuplicateId);
-            numeroIdInput.addEventListener('input', function() {
-                if (this.value.length >= 4) checkForDuplicateId();
-            });
-        }
-
-        function checkForDuplicateId() {
-            const numeroIdInput = document.getElementById('numero_identificacion');
-            const numeroIdAlert = document.getElementById('numero_identificacion_alert');
-            const idValue = numeroIdInput.value;
-            
-            if (!idValue) return false;
-            
-            const isDuplicate = existingData.some(item => item.numero_identificacion === idValue);
-            
-            if (isDuplicate) {
-                numeroIdInput.classList.add('has-error');
-                numeroIdAlert.style.display = 'block';
-                return true;
-            } else {
-                numeroIdInput.classList.remove('has-error');
-                numeroIdAlert.style.display = 'none';
-                return false;
+            if(!response.ok){
+                throw new Error("Error al guardar");
             }
         }
 
-        function generarID() {
-            const fecha = new Date();
-            const fechaStr = fecha.toISOString().slice(0, 10).replace(/-/g, '');
-            const randomHex = Math.floor(Math.random() * 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
-            return `OF-${fechaStr}-${randomHex}`;
+        const refreshResponse=await fetch(SHEETBEST_URL);
+        existingData=await refreshResponse.json();
+        updatePendingCases();
+        
+        document.getElementById("successModal").style.display="flex";
+        document.getElementById("errorMessage").style.display="none";
+        document.getElementById("oficioForm").reset();
+        document.getElementById("otraFiscaliaGroup").classList.add("hidden");
+        document.getElementById("motivoRechazoGroup").classList.add("hidden");
+        document.getElementById("tipoNoDisponibleGroup").classList.add("hidden");
+        
+    }catch(error){
+        document.getElementById("errorMessage").style.display="block";
+        document.getElementById("errorMessage").innerHTML=`
+            <i class="fas fa-exclamation-circle"></i> Error: ${error.message||"Revise conexión"}
+        `;
+        console.error("Error:",error);
+    }
+});
+
+document.addEventListener("change",function(e){
+    if(e.target.classList.contains("fecha-fin")){
+        const grupo=e.target.closest(".calle-periodo-group");
+        const fechaInicio=grupo.querySelector(".fecha-inicio").value;
+        const fechaFin=e.target.value;
+        
+        if(fechaInicio&&fechaFin&&fechaFin<fechaInicio){
+            alert("¡Fecha fin no puede ser anterior!");
+            e.target.value="";
         }
-
-        function getFechaHoraActual() {
-            const ahora = new Date();
-            const dia = ahora.getDate().toString().padStart(2, '0');
-            const mes = (ahora.getMonth() + 1).toString().padStart(2, '0');
-            const año = ahora.getFullYear();
-            const horas = ahora.getHours().toString().padStart(2, '0');
-            const minutos = ahora.getMinutes().toString().padStart(2, '0');
-            return `${dia}/${mes}/${año} ${horas}:${minutos}`;
-        }
-    
-        function mostrarCamposAdicionales() {
-            const estado = document.getElementById('estado_material').value;
-            
-            document.getElementById('motivoRechazoGroup').classList.add('hidden');
-            document.getElementById('tipoNoDisponibleGroup').classList.add('hidden');
-    
-            if (estado === 'Rechazado por Irregularidades') {
-                document.getElementById('motivoRechazoGroup').classList.remove('hidden');
-            } else if (estado === 'No se dispone de material') {
-                document.getElementById('tipoNoDisponibleGroup').classList.remove('hidden');
-            }
-        }
-    
-        document.getElementById('agregar-calle').addEventListener('click', function() {
-            const container = document.getElementById('calles-container');
-            const nuevoGrupo = document.createElement('div');
-            nuevoGrupo.className = 'calle-periodo-group';
-            
-            nuevoGrupo.innerHTML = `
-                <div class="form-group">
-                    <label>Calle(s)</label>
-                    <textarea class="calle-text" rows="2" required placeholder="Ej: Av. Corrientes 1200, entre Av. Callao y Av. Pueyrredón"></textarea>
-                </div>
-                <div class="date-time-range">
-                    <div>
-                        <label>Fecha Inicio</label>
-                        <input type="date" class="fecha-inicio" required>
-                    </div>
-                    <div>
-                        <label>Hora Inicio</label>
-                        <input type="time" class="hora-inicio" required>
-                    </div>
-                    <div>
-                        <label>Fecha Fin</label>
-                        <input type="date" class="fecha-fin" required>
-                    </div>
-                    <div>
-                        <label>Hora Fin</label>
-                        <input type="time" class="hora-fin" required>
-                    </div>
-                </div>
-                <button type="button" class="eliminar-calle">
-                    <i class="fas fa-trash"></i> Eliminar
-                </button>
-            `;
-            
-            container.appendChild(nuevoGrupo);
-            
-            nuevoGrupo.querySelector('.eliminar-calle').addEventListener('click', function() {
-                if (confirm('¿Estás seguro de eliminar este grupo de calles?')) {
-                    nuevoGrupo.remove();
-                }
-            });
-        });
-    
-        document.getElementById('oficioForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            if (checkForDuplicateId()) {
-                alert('Error: El número de identificación ya existe. Verifica los datos.');
-                return;
-            }
-            
-            const fiscaliaSelect = document.getElementById('fiscalia');
-            let fiscaliaValue = fiscaliaSelect.value;
-            
-            if (fiscaliaValue === "OTRO") {
-                const otraFiscalia = document.getElementById('otra_fiscalia').value.trim();
-                if (!otraFiscalia) {
-                    alert('Debe especificar la fiscalía');
-                    return;
-                }
-                fiscaliaValue = `OTRO: ${otraFiscalia}`;
-            }
-            
-            const estadoMaterial = document.getElementById('estado_material').value;
-            let detallesEstado = '';
-    
-            if (estadoMaterial === 'Rechazado por Irregularidades') {
-                detallesEstado = `Rechazado - Motivo: ${document.getElementById('motivo_rechazo').value}`;
-            } else if (estadoMaterial === 'No se dispone de material') {
-                detallesEstado = `No disponible - Razón: ${document.getElementById('tipo_no_disponible').value}`;
-            } else {
-                detallesEstado = estadoMaterial;
-            }
-    
-            const grupos = document.querySelectorAll('.calle-periodo-group');
-            
-            try {
-                for (const grupo of grupos) {
-                    const formData = {
-                        id: generarID(),
-                        numero_oficio: document.getElementById('numero_oficio').value,
-                        numero_identificacion: document.getElementById('numero_identificacion').value,
-                        fiscalia: fiscaliaValue,
-                        caratula: document.getElementById('caratula').value,
-                        calles: grupo.querySelector('.calle-text').value,
-                        fecha_inicio: grupo.querySelector('.fecha-inicio').value,
-                        hora_inicio: grupo.querySelector('.hora-inicio').value,
-                        fecha_fin: grupo.querySelector('.fecha-fin').value,
-                        hora_fin: grupo.querySelector('.hora-fin').value,
-                        camaras_aportadas: document.getElementById('camaras_aportadas').value,
-                        observaciones: document.getElementById('observaciones').value,
-                        estado_material: detallesEstado,
-                        fecha_carga: getFechaHoraActual(),
-                        timestamp: new Date().toISOString()
-                    };
-
-                    const response = await fetch(SHEETBEST_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Error al guardar en Google Sheets');
-                    }
-                }
-
-                const refreshResponse = await fetch(SHEETBEST_URL);
-                existingData = await refreshResponse.json();
-                updatePendingCases();
-                
-                document.getElementById('successModal').style.display = 'flex';
-                document.getElementById('errorMessage').style.display = 'none';
-                document.getElementById('oficioForm').reset();
-                document.getElementById('otraFiscaliaGroup').classList.add('hidden');
-                
-            } catch (error) {
-                document.getElementById('errorMessage').style.display = 'block';
-                document.getElementById('errorMessage').innerHTML = `
-                    <i class="fas fa-exclamation-circle"></i> Error al guardar: ${error.message || 'Revisa la conexión'}
-                `;
-                console.error('Error:', error);
-            }
-        });
-
-        document.addEventListener('change', function(e) {
-            if (e.target.classList.contains('fecha-fin')) {
-                const grupo = e.target.closest('.calle-periodo-group');
-                const fechaInicio = grupo.querySelector('.fecha-inicio').value;
-                const fechaFin = e.target.value;
-                
-                if (fechaInicio && fechaFin && fechaFin < fechaInicio) {
-                    alert('La fecha de fin no puede ser anterior a la fecha de inicio.');
-                    e.target.value = '';
-                }
-            }
-        });
-    </script>
+    }
+});
+</script>
 </body>
 </html>
