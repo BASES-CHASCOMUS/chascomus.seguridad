@@ -414,10 +414,6 @@ document.addEventListener("change",function(e){
         const fechaInicio=grupo.querySelector(".fecha-inicio").value;
         const fechaFin=e.target.value;
         
-        if(fechaInicio&&fechaFin&&fechaFin<fechaInicio){
-            alert("¡Fecha fin no puede ser anterior!");
-            e.target.value="";
-        }
     }
 });
 </script>
