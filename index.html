@@ -5,7 +5,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <title>⚖️ Sistema de Registro Judicial</title>
 <style>
-:root{--primary:#8b5cf6;--primary-light:#a78bfa;--dark:#f8fafc;--light:#1e293b;--gray:#64748b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--bg:#0f172a;--card:#1e293b;--text:#f8fafc;--border:#334155}*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}body{background-color:var(--bg);color:var(--text);min-height:100vh;padding:20px}.container{max-width:1200px;margin:0 auto}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}h1{color:var(--primary);font-size:28px;font-weight:700;display:flex;align-items:center;gap:10px}.alert-panel{background-color:var(--warning);color:white;padding:15px;border-radius:8px;margin-bottom:20px;display:flex;align-items:center;gap:10px;animation:pulse 2s infinite}@keyframes pulse{0%{opacity:1}50%{opacity:.8}100%{opacity:1}}.review-badge{background-color:var(--error);color:white;border-radius:50%;width:25px;height:25px;display:flex;align-items:center;justify-content:center;font-weight:700;margin-left:10px}.form-container{background-color:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.1);padding:30px;border:1px solid var(--border);margin-bottom:30px}.form-group{margin-bottom:20px;position:relative}label{display:block;margin-bottom:8px;font-weight:500;color:var(--text)}input,textarea,select{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:8px;font-size:16px;background-color:var(--card);color:var(--text);transition:all 0.3s ease}input:focus,textarea:focus,select:focus{border-color:var(--primary-light);outline:none;box-shadow:0 0 0 3px rgba(139,92,246,0.2)}.date-time-range{display:flex;gap:16px;flex-wrap:wrap}.date-time-range>div{flex:1;min-width:150px}button{background-color:var(--primary);color:white;border:none;padding:14px 24px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.3s ease;box-shadow:0 4px 6px rgba(0,0,0,0.1)}button:hover{transform:translateY(-2px);box-shadow:0 6px 10px rgba(0,0,0,0.2);opacity:0.9}.save-button{background-color:var(--success)}.save-button:hover{background-color:#0d9f6e}.sheets-button{background-color:#34a853;margin-bottom:20px;width:100%}.sheets-button:hover{background-color:#2d8e47}.message{padding:16px;border-radius:8px;margin-top:20px;text-align:center;display:none}.success{background-color:var(--success);color:white}.error{background-color:var(--error);color:white}.hidden{display:none}.calle-periodo-group{margin-bottom:15px;border:1px solid var(--border);padding:15px;border-radius:8px;transition:all 0.3s ease}.calle-periodo-group:hover{border-color:var(--primary-light)}.eliminar-calle{background-color:var(--error)!important;margin-top:10px;padding:8px 12px!important;font-size:14px!important}.eliminar-calle:hover{background-color:#dc2626!important}.campos-extra{background-color:rgba(139,92,246,0.1);padding:15px;border-radius:8px;margin-top:20px;border:1px dashed var(--primary);transition:all 0.3s ease}.campos-extra:hover{border-color:var(--primary-light)}.field-alert{position:absolute;bottom:-20px;left:0;font-size:12px;padding:4px 8px;border-radius:4px;display:none;transition:all 0.3s ease}.alert-warning{background-color:var(--warning);color:white}.alert-error{background-color:var(--error);color:white}.has-warning{border-color:var(--warning)!important}.has-error{border-color:var(--error)!important}.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:center}.modal-success{background-color:var(--success);padding:30px;border-radius:10px;text-align:center;max-width:400px;width:90%;box-shadow:0 5px 15px rgba(0,0,0,0.3)}@media (max-width:768px){.date-time-range{flex-direction:column;gap:10px}.alert-panel{flex-direction:column;align-items:flex-start}}
+:root{--primary:#8b5cf6;--primary-light:#a78bfa;--dark:#0f172a;--light:#f8fafc;--gray:#64748b;--success:#10b981;--warning:#f59e0b;--error:#ef4444;--bg:#0f172a;--card:#1e293b;--text:#f8fafc;--border:#334155}*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}body{background-color:var(--bg);color:var(--text);min-height:100vh;padding:20px}.container{max-width:1200px;margin:0 auto}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}h1{color:var(--primary);font-size:28px;font-weight:700;display:flex;align-items:center;gap:10px}.alert-panel{background-color:var(--warning);color:white;padding:15px;border-radius:8px;margin-bottom:20px;display:flex;align-items:center;gap:10px;animation:pulse 2s infinite}@keyframes pulse{0%{opacity:1}50%{opacity:.8}100%{opacity:1}}.review-badge{background-color:var(--error);color:white;border-radius:50%;width:25px;height:25px;display:flex;align-items:center;justify-content:center;font-weight:700;margin-left:10px}.form-container{background-color:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.1);padding:30px;border:1px solid var(--border);margin-bottom:30px}.form-group{margin-bottom:20px;position:relative}label{display:block;margin-bottom:8px;font-weight:500;color:var(--text)}input,textarea,select{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:8px;font-size:16px;background-color:var(--card);color:var(--text);transition:all 0.3s ease}input:focus,textarea:focus,select:focus{border-color:var(--primary-light);outline:none;box-shadow:0 0 0 3px rgba(139,92,246,0.2)}.date-time-range{display:flex;gap:16px;flex-wrap:wrap}.date-time-range>div{flex:1;min-width:150px}button{background-color:var(--primary);color:white;border:none;padding:14px 24px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.3s ease;box-shadow:0 4px 6px rgba(0,0,0,0.1)}button:hover{transform:translateY(-2px);box-shadow:0 6px 10px rgba(0,0,0,0.2);opacity:0.9}.save-button{background-color:var(--success)}.save-button:hover{background-color:#0d9f6e}.sheets-button{background-color:#34a853;margin-bottom:20px;width:100%}.sheets-button:hover{background-color:#2d8e47}.message{padding:16px;border-radius:8px;margin-top:20px;text-align:center;display:none}.success{background-color:var(--success);color:white}.error{background-color:var(--error);color:white}.hidden{display:none}.calle-periodo-group{margin-bottom:15px;border:1px solid var(--border);padding:15px;border-radius:8px;transition:all 0.3s ease}.calle-periodo-group:hover{border-color:var(--primary-light)}.eliminar-calle{background-color:var(--error)!important;margin-top:10px;padding:8px 12px!important;font-size:14px!important}.eliminar-calle:hover{background-color:#dc2626!important}.campos-extra{background-color:rgba(139,92,246,0.1);padding:15px;border-radius:8px;margin-top:20px;border:1px dashed var(--primary);transition:all 0.3s ease}.campos-extra:hover{border-color:var(--primary-light)}.field-alert{position:absolute;bottom:-20px;left:0;font-size:12px;padding:4px 8px;border-radius:4px;display:none;transition:all 0.3s ease}.alert-warning{background-color:var(--warning);color:white}.alert-error{background-color:var(--error);color:white}.has-warning{border-color:var(--warning)!important}.has-error{border-color:var(--error)!important}.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:center}.modal-success{background-color:var(--success);padding:30px;border-radius:10px;text-align:center;max-width:400px;width:90%;box-shadow:0 5px 15px rgba(0,0,0,0.3)}table{width:100%;border-collapse:collapse;margin-top:20px}th{background-color:var(--primary);color:white;padding:12px;text-align:left}td{padding:12px;border-bottom:1px solid var(--border)}tr:hover{background-color:rgba(255,255,255,0.05)}.detalle-row{display:none}.detalle-row.visible{display:table-row}@media (max-width:768px){.date-time-range{flex-direction:column;gap:10px}.alert-panel{flex-direction:column;align-items:flex-start}th,td{padding:8px}}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel=stylesheet>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel=stylesheet>
@@ -21,6 +21,14 @@
 
 <header>
 <h1><i class="fas fa-file-contract"></i> Sistema de Registro Judicial | Municipio de Chascomús</h1>
+<div style="display:flex;gap:10px">
+    <button id=btnCargar class=save-button style="margin:0">
+        <i class="fas fa-plus"></i> Cargar
+    </button>
+    <button id=btnBuscar class=sheets-button style="margin:0">
+        <i class="fas fa-search"></i> Buscar
+    </button>
+</div>
 </header>
 
 <div class=form-container id=formCargar>
@@ -42,7 +50,6 @@
 <input type=text id=numero_identificacion required placeholder="Ej: IPP N°...">
 <div id=numero_identificacion_alert class="field-alert alert-error">
 <i class="fas fa-times-circle"></i>  Este número ya existe en el sistema.
-
 </div>
 </div>
 
@@ -145,6 +152,52 @@
 <i class="fas fa-exclamation-circle"></i> Error al guardar
 </div>
 </div>
+
+<div class=form-container id=formBuscar style="display:none">
+<h2><i class="fas fa-search"></i> Buscar Oficios</h2>
+
+<div class=form-group>
+<label for=buscarTexto>Buscar por N° de Oficio, Fiscalía o Carátula</label>
+<input type=text id=buscarTexto placeholder="Ej: IPP N°... / U.F.I N°10 / Robo...">
+</div>
+
+<div class=form-group>
+<label for=buscarIdentificacion>Buscar por N° de Identificación</label>
+<input type=text id=buscarIdentificacion placeholder="Ej: IPP N°...">
+</div>
+
+<div class=date-time-range>
+<div class=form-group>
+<label for=fechaDesde>Desde</label>
+<input type=date id=fechaDesde>
+</div>
+<div class=form-group>
+<label for=fechaHasta>Hasta</label>
+<input type=date id=fechaHasta>
+</div>
+</div>
+
+<button id=btnBuscarOficios class=save-button>
+<i class="fas fa-search"></i> Buscar
+</button>
+
+<div id=resultados style="margin-top:20px">
+<table>
+<thead>
+<tr>
+<th style="width:120px">N° Oficio</th>
+<th style="width:100px">Fecha</th>
+<th>N° Identificación</th>
+<th>Carátula</th>
+<th>Fiscalía</th>
+<th style="width:50px"></th>
+</tr>
+</thead>
+<tbody id=tablaResultados>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 
 <div id=successModal class=modal-overlay>
@@ -163,6 +216,13 @@ document.addEventListener("DOMContentLoaded",async()=>{
     try{
         const response=await fetch(SHEETBEST_URL);
         existingData=await response.json();
+        existingData.forEach(item => {
+            if(item.fecha_carga) {
+                const [fecha, hora] = item.fecha_carga.split(' ');
+                const [dia, mes, anio] = fecha.split('/');
+                item.fechaObj = new Date(`${mes}/${dia}/${anio}`);
+            }
+        });
         updatePendingCases();
         setupFieldMonitoring();
     }catch(error){
@@ -170,6 +230,103 @@ document.addEventListener("DOMContentLoaded",async()=>{
         document.getElementById("errorMessage").style.display="block";
     }
 });
+
+document.getElementById("btnCargar").addEventListener("click",()=>{
+    document.getElementById("formCargar").style.display="block";
+    document.getElementById("formBuscar").style.display="none";
+});
+
+document.getElementById("btnBuscar").addEventListener("click",()=>{
+    document.getElementById("formCargar").style.display="none";
+    document.getElementById("formBuscar").style.display="block";
+    mostrarResultados(existingData);
+});
+
+document.getElementById("btnBuscarOficios").addEventListener("click",()=>{
+    const texto=document.getElementById("buscarTexto").value.toLowerCase();
+    const identificacion=document.getElementById("buscarIdentificacion").value.toLowerCase();
+    const desde=document.getElementById("fechaDesde").value;
+    const hasta=document.getElementById("fechaHasta").value;
+    
+    const resultados=existingData.filter(item=>{
+        const cumpleTexto=texto ?
+            (item.numero_oficio?.toLowerCase().includes(texto) ||
+             item.fiscalia?.toLowerCase().includes(texto) ||
+             item.caratula?.toLowerCase().includes(texto)) : true;
+        
+        const cumpleIdentificacion=identificacion ?
+            item.numero_identificacion?.toLowerCase().includes(identificacion) : true;
+        
+        let cumpleFecha=true;
+        if(desde && hasta && item.fechaObj) {
+            const desdeDate = new Date(desde);
+            const hastaDate = new Date(hasta);
+            cumpleFecha = item.fechaObj >= desdeDate && item.fechaObj <= hastaDate;
+        }
+        
+        return cumpleTexto && cumpleIdentificacion && cumpleFecha;
+    });
+    
+    mostrarResultados(resultados);
+});
+
+function mostrarResultados(data){
+    const tbody=document.getElementById("tablaResultados");
+    tbody.innerHTML="";
+    
+    if(data.length===0){
+        tbody.innerHTML=`<tr><td colspan=6 style="text-align:center;padding:20px">No se encontraron resultados</td></tr>`;
+        return;
+    }
+    
+    data.forEach((item, index)=>{
+        const tr=document.createElement("tr");
+        tr.style.cursor="pointer";
+        tr.innerHTML=`
+            <td>${item.numero_oficio||"-"}</td>
+            <td>${item.fecha_carga?.split(' ')[0]||"-"}</td>
+            <td>${item.numero_identificacion||"-"}</td>
+            <td>${item.caratula||"-"}</td>
+            <td>${item.fiscalia||"-"}</td>
+            <td style="text-align:center"><i class="fas fa-chevron-down"></i></td>
+        `;
+        
+        const trDetalle=document.createElement("tr");
+        trDetalle.className="detalle-row";
+        trDetalle.innerHTML=`
+            <td colspan=6 style="padding:20px;background-color:rgba(255,255,255,0.05)">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+                    <div>
+                        <p><strong>Cámaras aportadas:</strong></p>
+                        <p>${item.camaras_aportadas||"-"}</p>
+                    </div>
+                    <div>
+                        <p><strong>Estado:</strong></p>
+                        <p>${item.estado_material||"-"}</p>
+                    </div>
+                    <div>
+                        <p><strong>Calles:</strong></p>
+                        <p>${item.calles||"-"}</p>
+                    </div>
+                    <div>
+                        <p><strong>Observaciones:</strong></p>
+                        <p>${item.observaciones||"-"}</p>
+                    </div>
+                </div>
+            </td>
+        `;
+        
+        tr.addEventListener("click",()=>{
+            trDetalle.classList.toggle("visible");
+            const icon=tr.querySelector("i");
+            icon.classList.toggle("fa-chevron-down");
+            icon.classList.toggle("fa-chevron-up");
+        });
+        
+        tbody.appendChild(tr);
+        tbody.appendChild(trDetalle);
+    });
+}
 
 function mostrarCampoOtraFiscalia(){
     const fiscaliaSelect=document.getElementById("fiscalia");
@@ -214,30 +371,29 @@ function updatePendingCases(){
     }
 }
 
-function setupFieldMonitoring() {
-    const numeroOficioInput = document.getElementById("numero_oficio");
-    const numeroOficioAlert = document.getElementById("numero_oficio_alert");
+function setupFieldMonitoring(){
+    const numeroOficioInput=document.getElementById("numero_oficio");
+    const numeroOficioAlert=document.getElementById("numero_oficio_alert");
     
-    numeroOficioInput.addEventListener("input", function() {
-        if (this.value.includes("#")) {
+    numeroOficioInput.addEventListener("input",function(){
+        if(this.value.includes("#")){
             this.classList.add("has-warning");
-            numeroOficioAlert.style.display = "block";
-        } else {
+            numeroOficioAlert.style.display="block";
+        }else{
             this.classList.remove("has-warning");
-            numeroOficioAlert.style.display = "none";
+            numeroOficioAlert.style.display="none";
         }
     });
 
-    const numeroIdInput = document.getElementById("numero_identificacion");
-    const numeroIdAlert = document.getElementById("numero_identificacion_alert");
+    const numeroIdInput=document.getElementById("numero_identificacion");
+    const numeroIdAlert=document.getElementById("numero_identificacion_alert");
     
-    numeroIdInput.addEventListener("input", function() {
-        if (this.value.length >= 1) { 
+    numeroIdInput.addEventListener("input",function(){
+        if(this.value.length>=1){ 
             checkForDuplicateId();
-        } else {
-
+        }else{
             numeroIdInput.classList.remove("has-error");
-            numeroIdAlert.style.display = "none";
+            numeroIdAlert.style.display="none";
         }
     });
 }
@@ -247,7 +403,7 @@ function checkForDuplicateId(){
     const numeroIdAlert=document.getElementById("numero_identificacion_alert");
     const idValue=numeroIdInput.value;
     
-    if(!idValue) return false;
+    if(!idValue)return false;
     
     const isDuplicate=existingData.some(item=>item.numero_identificacion===idValue);
     
@@ -405,15 +561,6 @@ document.getElementById("oficioForm").addEventListener("submit",async function(e
             <i class="fas fa-exclamation-circle"></i> Error: ${error.message||"Revise conexión"}
         `;
         console.error("Error:",error);
-    }
-});
-
-document.addEventListener("change",function(e){
-    if(e.target.classList.contains("fecha-fin")){
-        const grupo=e.target.closest(".calle-periodo-group");
-        const fechaInicio=grupo.querySelector(".fecha-inicio").value;
-        const fechaFin=e.target.value;
-        
     }
 });
 </script>
