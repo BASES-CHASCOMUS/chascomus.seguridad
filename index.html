@@ -626,7 +626,6 @@ const SHEETBEST_URL = "https://api.sheetbest.com/sheets/87fb9cab-586c-4ace-ab7b-
 let existingData = [];
 let pendingCases = 0;
 
-// Función para mostrar/ocultar campo de otra fiscalía
 function mostrarCampoOtraFiscalia() {
     const fiscaliaSelect = document.getElementById("fiscalia");
     const otraFiscaliaGroup = document.getElementById("otraFiscaliaGroup");
@@ -635,7 +634,7 @@ function mostrarCampoOtraFiscalia() {
         otraFiscaliaGroup.classList.remove("hidden");
     } else {
         otraFiscaliaGroup.classList.add("hidden");
-        document.getElementById("otra_fiscalia").value = ""; // Limpiar campo
+        document.getElementById("otra_fiscalia").value = ""; 
     }
 }
 
@@ -936,7 +935,7 @@ document.getElementById("oficioForm").addEventListener("submit", async function(
             document.getElementById("otra_fiscalia").focus();
             return;
         }
-        fiscaliaValue = otraFiscalia; 
+        fiscaliaValue = `OTRO: ${otraFiscalia}`; 
     }
     
     const estadoMaterial = document.getElementById("estado_material").value;
