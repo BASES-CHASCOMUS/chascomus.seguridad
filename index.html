@@ -134,6 +134,12 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
 }
 
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
 .date-time-range {
   display: flex;
   gap: 16px;
@@ -166,6 +172,12 @@ button:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 10px rgba(0,0,0,0.2);
   opacity: 0.9;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .save-button {
@@ -281,6 +293,7 @@ button:hover {
   border-color: var(--error) !important;
 }
 
+/* MODAL DE ÉXITO MODERNO */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -288,133 +301,135 @@ button:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.8);
   z-index: 1000;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(4px);
 }
 
 .modal-success {
-  background-color: var(--success);
-  padding: 30px;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  padding: 40px;
+  border-radius: 24px;
   text-align: center;
-  max-width: 400px;
+  max-width: 450px;
   width: 90%;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 25px 40px rgba(0,0,0,0.4);
+  animation: modalSlideIn 0.3s ease-out;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-th {
-  background-color: var(--primary);
-  color: white;
-  padding: 12px;
-  text-align: left;
-}
-
-td {
-  padding: 12px;
-  border-bottom: 1px solid var(--border);
-}
-
-tr:hover {
-  background-color: rgba(255,255,255,0.05);
-}
-
-.detalle-row {
-  display: none;
-}
-
-.detalle-row.visible {
-  display: table-row;
-}
-
-.detalle-content {
-  background-color: var(--detail-bg);
-  padding: 20px;
-  border-radius: 8px;
-  margin: 10px 0;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.detalle-section {
-  padding: 15px;
-  border-radius: 6px;
+.modal-success h3 {
+  font-size: 28px;
   margin-bottom: 15px;
-}
-
-.detalle-section h4 {
-  color: var(--primary-light);
-  margin-bottom: 10px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 15px;
+  justify-content: center;
+  gap: 12px;
 }
 
-.detalle-section p {
-  margin: 8px 0;
-  line-height: 1.5;
-  white-space: pre-line;
+.modal-success h3 i {
+  font-size: 36px;
 }
 
-.detalle-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+.modal-success p {
+  font-size: 16px;
+  margin-bottom: 25px;
+  opacity: 0.95;
 }
 
-.section-camaras {
-  background-color: var(--section-purple);
-  border-left: 4px solid var(--primary);
+.modal-success button {
+  background-color: white;
+  color: #059669;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: auto;
+  display: inline-flex;
 }
 
-.section-estado {
-  background-color: var(--section-green);
-  border-left: 4px solid var(--success);
+.modal-success button:hover {
+  transform: scale(1.05);
+  background-color: #f0fdf4;
 }
 
-.section-calles {
-  background-color: var(--section-blue);
-  border-left: 4px solid #3b82f6;
+/* TOAST NOTIFICATION */
+.toast-notification {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  z-index: 1100;
+  animation: toastSlideIn 0.3s ease-out;
+  font-weight: 500;
 }
 
-.section-periodo {
-  background-color: var(--section-amber);
-  border-left: 4px solid var(--warning);
+@keyframes toastSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
-.section-fecha {
-  background-color: rgba(99, 102, 241, 0.1);
-  border-left: 4px solid #6366f1;
+.toast-notification i {
+  font-size: 24px;
 }
 
-.section-observaciones {
-  background-color: rgba(236, 72, 153, 0.1);
-  border-left: 4px solid #ec4899;
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 0.6s linear infinite;
 }
 
-/* ESTILOS CORREGIDOS PARA LOS BOTONES */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .header-buttons {
   display: flex;
   gap: 3px;
   flex-wrap: wrap;
 }
 
-.header-buttons button {
-  margin: 0;
-  white-space: nowrap;
-}
-
 @media (max-width: 768px) {
   .date-time-range {
     flex-direction: column;
     gap: 10px;
+  }
+  
+  .row-2 {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
   
   .alert-panel {
@@ -449,6 +464,13 @@ tr:hover {
     min-width: 100px;
     padding: 12px 16px;
     font-size: 14px;
+  }
+  
+  .toast-notification {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    padding: 12px 20px;
   }
 }
 
@@ -512,6 +534,39 @@ tr:hover {
 </div>
 </div>
 
+<div class="row-2">
+  <div class=form-group>
+    <label for=mes_agrupacion>📅 Mes *</label>
+    <select id=mes_agrupacion required>
+      <option value="">Seleccione Mes</option>
+      <option value="enero">enero</option>
+      <option value="febrero">febrero</option>
+      <option value="marzo">marzo</option>
+      <option value="abril">abril</option>
+      <option value="mayo">mayo</option>
+      <option value="junio">junio</option>
+      <option value="julio">julio</option>
+      <option value="agosto">agosto</option>
+      <option value="septiembre">septiembre</option>
+      <option value="octubre">octubre</option>
+      <option value="noviembre">noviembre</option>
+      <option value="diciembre">diciembre</option>
+    </select>
+  </div>
+  <div class=form-group>
+    <label for=anio>📆 Año *</label>
+    <select id=anio required>
+      <option value="">Seleccione Año</option>
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+      <option value="2028">2028</option>
+    </select>
+  </div>
+</div>
+
 <div class=form-group>
 <label for=fiscalia>Fiscalía Interviniente *</label>
 <select id=fiscalia required onchange=mostrarCampoOtraFiscalia()>
@@ -531,6 +586,19 @@ tr:hover {
 <div class=form-group>
 <label for=caratula>Carátula *</label>
 <input type=text id=caratula required placeholder="Ej: Robo agravado">
+</div>
+
+<div class=form-group>
+<label for=caratula_agrupada>📋 Agrupación de Carátula *</label>
+<select id=caratula_agrupada required>
+<option value="">Seleccione...</option>
+<option value="ROBO">ROBO</option>
+<option value="HURTO">HURTO</option>
+<option value="LESIONES">LESIONES</option>
+<option value="OTRO">OTRO</option>
+<option value="AMENAZAS">AMENAZAS</option>
+<option value="LEY 23.737">LEY 23.737</option>
+</select>
 </div>
 
 <div class=form-group>
@@ -568,9 +636,15 @@ tr:hover {
 
 <div class=campos-extra>
 <div class=form-group>
-<label for=camaras_aportadas>🎥 Cámaras Aportadas  *</label>
+<label for=camaras_aportadas>🎥 Cámaras Aportadas *</label>
 <textarea id=camaras_aportadas rows=3 required placeholder="Códigos de cámaras"></textarea>
 </div>
+
+<div class=form-group>
+<label for=datos_imputado>👤 Datos del Imputado</label>
+<textarea id=datos_imputado rows=2 placeholder="Nombre, DNI, domicilio, etc."></textarea>
+</div>
+
 <div class=form-group>
 <label for=observaciones>📝 Observaciones</label>
 <textarea id=observaciones rows=2 placeholder="Detalles..."></textarea>
@@ -578,7 +652,7 @@ tr:hover {
 </div>
 
 <div class=form-group>
-<label for=estado_material>Estado del Material Filmico       *</label>
+<label for=estado_material>Estado del Material Filmico *</label>
 <select id=estado_material required onchange=mostrarCamposEstado()>
 <option value="">Seleccione...</option>
 <option value="Entrega Normal">Entrega Normal</option>
@@ -602,21 +676,17 @@ tr:hover {
 </select>
 </div>
 
-<button type=submit class=save-button><i class="fas fa-save"></i> Guardar</button>
+<button type=submit id=btnGuardar class=save-button>
+<i class="fas fa-save"></i> Guardar
+</button>
 </form>
-<div class="message success" id=successMessage>
-<i class="fas fa-check-circle"></i> Oficio guardado
-</div>
-<div class="message error" id=errorMessage>
-<i class="fas fa-exclamation-circle"></i> Error al guardar
-</div>
 </div>
 
 <div class=form-container id=formBuscar style="display:none">
 <h2><i class="fas fa-search"></i> Buscar Oficios</h2>
 
 <div class=form-group>
-<label for=buscarTexto>Buscar por N° de Oficio, Fiscalía o Carátula</label>
+<label for=buscarTexto>Buscar por N° de Oficio, Fiscalía, Carátula o Datos del Imputado</label>
 <input type=text id=buscarTexto placeholder="Ej: IPP N°... / U.F.I N°10 / Robo...">
 </div>
 
@@ -659,11 +729,12 @@ tr:hover {
 </div>
 </div>
 
+<!-- MODAL DE ÉXITO MODERNO -->
 <div id=successModal class=modal-overlay>
 <div class=modal-success>
 <h3><i class="fas fa-check-circle"></i> ¡Éxito!</h3>
-<p>El oficio se ha guardado correctamente</p>
-<button onclick="document.getElementById('successModal').style.display='none'" style="margin-top:15px;width:100%">Aceptar</button>
+<p>El oficio se ha guardado correctamente en la base de datos</p>
+<button onclick="document.getElementById('successModal').style.display='none'">Aceptar</button>
 </div>
 </div>
 
@@ -671,6 +742,7 @@ tr:hover {
 const SHEETBEST_URL = "https://api.sheetbest.com/sheets/87fb9cab-586c-4ace-ab7b-ad1a399cbee2/tabs/Reportes-Judiciales";
 let existingData = [];
 let pendingCases = 0;
+let isSubmitting = false;
 
 function mostrarCampoOtraFiscalia() {
     const fiscaliaSelect = document.getElementById("fiscalia");
@@ -682,6 +754,24 @@ function mostrarCampoOtraFiscalia() {
         otraFiscaliaGroup.classList.add("hidden");
         document.getElementById("otra_fiscalia").value = ""; 
     }
+}
+
+function showToast(message, type = 'success') {
+    const existingToast = document.querySelector('.toast-notification');
+    if(existingToast) existingToast.remove();
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'toastSlideIn 0.3s ease-out reverse';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -699,7 +789,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         setupFieldMonitoring();
     } catch(error) {
         console.error("Error:", error);
-        document.getElementById("errorMessage").style.display = "block";
+        showToast("Error al cargar datos", "error");
     }
 });
 
@@ -724,7 +814,8 @@ document.getElementById("btnBuscarOficios").addEventListener("click", () => {
         const cumpleTexto = texto ?
             (item.numero_oficio?.toLowerCase().includes(texto) ||
              item.fiscalia?.toLowerCase().includes(texto) ||
-             item.caratula?.toLowerCase().includes(texto)) : true;
+             item.caratula?.toLowerCase().includes(texto) ||
+             item.datos_imputado?.toLowerCase().includes(texto)) : true;
         
         const cumpleIdentificacion = identificacion ?
             item.numero_identificacion?.toLowerCase().includes(identificacion) : true;
@@ -788,6 +879,10 @@ function mostrarResultados(data) {
                         <div class="detalle-section section-fecha">
                             <h4><i class="fas fa-calendar-day"></i> Fecha de carga</h4>
                             <p>${item.fecha_carga || "No especificado"}</p>
+                        </div>
+                        <div class="detalle-section section-imputado">
+                            <h4><i class="fas fa-user-graduate"></i> Datos del Imputado</h4>
+                            <p>${item.datos_imputado || "No especificado"}</p>
                         </div>
                         <div class="detalle-section section-observaciones">
                             <h4><i class="fas fa-comment-alt"></i> Observaciones</h4>
@@ -965,6 +1060,29 @@ document.getElementById("agregar-calle").addEventListener("click", function() {
 document.getElementById("oficioForm").addEventListener("submit", async function(e) {
     e.preventDefault();
     
+    if(isSubmitting) {
+        showToast("Espere, ya se está guardando...", "warning");
+        return;
+    }
+    
+    if(!document.getElementById("mes_agrupacion").value) {
+        alert("Seleccione un MES");
+        document.getElementById("mes_agrupacion").focus();
+        return;
+    }
+    
+    if(!document.getElementById("anio").value) {
+        alert("Seleccione un AÑO");
+        document.getElementById("anio").focus();
+        return;
+    }
+    
+    if(!document.getElementById("caratula_agrupada").value) {
+        alert("Seleccione una AGRUPACIÓN DE CARÁTULA");
+        document.getElementById("caratula_agrupada").focus();
+        return;
+    }
+    
     if(checkForDuplicateId()) {
         alert("Error: N° de ID duplicado");
         document.getElementById("numero_identificacion").focus();
@@ -988,8 +1106,18 @@ document.getElementById("oficioForm").addEventListener("submit", async function(
     let detallesEstado = "";
     
     if(estadoMaterial === "Rechazado por Irregularidades") {
+        if(!document.getElementById("motivo_rechazo").value) {
+            alert("Debe especificar el motivo de rechazo");
+            document.getElementById("motivo_rechazo").focus();
+            return;
+        }
         detallesEstado = `Rechazado: ${document.getElementById("motivo_rechazo").value}`;
     } else if(estadoMaterial === "No se dispone de material") {
+        if(!document.getElementById("tipo_no_disponible").value) {
+            alert("Debe especificar el tipo de no disponibilidad");
+            document.getElementById("tipo_no_disponible").focus();
+            return;
+        }
         detallesEstado = `No disponible: ${document.getElementById("tipo_no_disponible").value}`;
     } else {
         detallesEstado = estadoMaterial;
@@ -997,24 +1125,33 @@ document.getElementById("oficioForm").addEventListener("submit", async function(
     
     const grupos = document.querySelectorAll(".calle-periodo-group");
     
+    isSubmitting = true;
+    const btnGuardar = document.getElementById("btnGuardar");
+    const originalBtnHtml = btnGuardar.innerHTML;
+    btnGuardar.innerHTML = '<span class="loading-spinner"></span> Guardando...';
+    btnGuardar.disabled = true;
+    
     try {
         for(const grupo of grupos) {
+            // ORDEN EXACTO: mes-agrupacion, año, fecha_carga, numero_oficio, numero_identificacion, caratula, caratula-agrupada, fiscalia, calles, fecha_inicio, hora_inicio, fecha_fin, hora_fin, camaras_aportadas, datos-imputado, observaciones, estado-material
             const formData = {
-                id: generarID(),
-                numero_oficio: document.getElementById("numero_oficio").value,
-                numero_identificacion: document.getElementById("numero_identificacion").value,
-                fiscalia: fiscaliaValue,
-                caratula: document.getElementById("caratula").value,
-                calles: grupo.querySelector(".calle-text").value,
-                fecha_inicio: grupo.querySelector(".fecha-inicio").value,
-                hora_inicio: grupo.querySelector(".hora-inicio").value,
-                fecha_fin: grupo.querySelector(".fecha-fin").value,
-                hora_fin: grupo.querySelector(".hora-fin").value,
-                camaras_aportadas: document.getElementById("camaras_aportadas").value,
-                observaciones: document.getElementById("observaciones").value,
-                estado_material: detallesEstado,
-                fecha_carga: getFechaHoraActual(),
-                timestamp: new Date().toISOString()
+                "mes-agrupacion": document.getElementById("mes_agrupacion").value,
+                "año": document.getElementById("anio").value,
+                "fecha_carga": getFechaHoraActual(),
+                "numero_oficio": document.getElementById("numero_oficio").value,
+                "numero_identificacion": document.getElementById("numero_identificacion").value,
+                "caratula": document.getElementById("caratula").value,
+                "caratula-agrupada": document.getElementById("caratula_agrupada").value,
+                "fiscalia": fiscaliaValue,
+                "calles": grupo.querySelector(".calle-text").value,
+                "fecha_inicio": grupo.querySelector(".fecha-inicio").value,
+                "hora_inicio": grupo.querySelector(".hora-inicio").value,
+                "fecha_fin": grupo.querySelector(".fecha-fin").value,
+                "hora_fin": grupo.querySelector(".hora-fin").value,
+                "camaras_aportadas": document.getElementById("camaras_aportadas").value,
+                "datos-imputado": document.getElementById("datos_imputado").value,
+                "observaciones": document.getElementById("observaciones").value,
+                "estado-material": detallesEstado
             };
 
             const response = await fetch(SHEETBEST_URL, {
@@ -1034,19 +1171,29 @@ document.getElementById("oficioForm").addEventListener("submit", async function(
         existingData = await refreshResponse.json();
         updatePendingCases();
         
+        // Mostrar modal de éxito MODERNO
         document.getElementById("successModal").style.display = "flex";
-        document.getElementById("errorMessage").style.display = "none";
+        
+        // También mostrar toast
+        showToast("¡Oficio guardado con éxito!", "success");
+        
+        // Resetear formulario
         document.getElementById("oficioForm").reset();
         document.getElementById("otraFiscaliaGroup").classList.add("hidden");
         document.getElementById("motivoRechazoGroup").classList.add("hidden");
         document.getElementById("tipoNoDisponibleGroup").classList.add("hidden");
         
+        document.getElementById("mes_agrupacion").value = "";
+        document.getElementById("anio").value = "";
+        document.getElementById("caratula_agrupada").value = "";
+        
     } catch(error) {
-        document.getElementById("errorMessage").style.display = "block";
-        document.getElementById("errorMessage").innerHTML = `
-            <i class="fas fa-exclamation-circle"></i> Error: ${error.message || "Revise conexión"}
-        `;
+        showToast(`Error: ${error.message || "Revise conexión"}`, "error");
         console.error("Error:", error);
+    } finally {
+        isSubmitting = false;
+        btnGuardar.innerHTML = originalBtnHtml;
+        btnGuardar.disabled = false;
     }
 });
 </script>
