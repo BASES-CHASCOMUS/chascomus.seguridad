@@ -65,44 +65,252 @@ h1 {
 }
 
 .alert-panel {
-  background-color: var(--warning);
+  background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
   color: white;
-  padding: 15px;
-  border-radius: 8px;
+  padding: 15px 20px;
+  border-radius: 12px;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   animation: pulse 2s infinite;
   cursor: pointer;
+  font-weight: 500;
 }
 
 @keyframes pulse {
-  0% { opacity: 1 }
-  50% { opacity: .8 }
-  100% { opacity: 1 }
+  0%, 100% { opacity: 1; }
+  50% { opacity: .95; }
 }
 
 .review-badge {
-  background-color: var(--error);
-  color: white;
+  background-color: white;
+  color: var(--error);
   border-radius: 50%;
-  width: 25px;
-  height: 25px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: 800;
   margin-left: 10px;
 }
 
 .form-container {
   background-color: var(--card);
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+  border-radius: 20px;
   padding: 30px;
   border: 1px solid var(--border);
   margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+.form-container:hover {
+  border-color: var(--primary-light);
+}
+
+.resultados-container {
+  margin-top: 25px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.resultados-header {
+  background: linear-gradient(135deg, var(--primary) 0%, #6d28d9 100%);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resultados-header h3 {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resultados-header span {
+  background: rgba(255,255,255,0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: rgba(139, 92, 246, 0.15);
+  color: var(--primary-light);
+  padding: 14px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-size: 14px;
+}
+
+tr:hover {
+  background-color: rgba(139, 92, 246, 0.08);
+  cursor: pointer;
+}
+
+.detalle-row {
+  display: none;
+}
+
+.detalle-row.visible {
+  display: table-row;
+}
+
+.detalle-content {
+  background-color: var(--detail-bg);
+  padding: 20px;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+.detalle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.detalle-section {
+  padding: 18px;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.detalle-section:hover {
+  transform: translateY(-2px);
+}
+
+.detalle-section h4 {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.detalle-section p {
+  margin: 8px 0;
+  line-height: 1.6;
+  white-space: pre-line;
+  font-size: 14px;
+}
+
+.section-camaras { background-color: var(--section-purple); border-left: 4px solid var(--primary); }
+.section-estado { background-color: var(--section-green); border-left: 4px solid var(--success); }
+.section-calles { background-color: var(--section-blue); border-left: 4px solid #3b82f6; }
+.section-periodo { background-color: var(--section-amber); border-left: 4px solid var(--warning); }
+.section-fecha { background-color: rgba(99, 102, 241, 0.1); border-left: 4px solid #6366f1; }
+.section-imputado { background-color: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; }
+.section-observaciones { background-color: rgba(236, 72, 153, 0.1); border-left: 4px solid #ec4899; }
+
+button {
+  background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.save-button {
+  background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+}
+
+.sheets-button {
+  background: linear-gradient(135deg, #34a853 0%, #1e7e34 100%);
+}
+
+.analysis-button {
+  background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
+}
+
+.search-card {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.03) 100%);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid var(--border);
+}
+
+.search-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--primary-light);
+}
+
+.search-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.filter-group {
+  background: var(--card);
+  border-radius: 12px;
+}
+
+.filter-group label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray);
+  margin-bottom: 5px;
+  display: block;
+}
+
+.filter-group input, .filter-group select {
+  background: var(--dark);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.filter-group input:focus {
+  border-color: var(--primary);
+  outline: none;
 }
 
 .form-group {
@@ -115,14 +323,15 @@ label {
   margin-bottom: 8px;
   font-weight: 500;
   color: var(--text);
+  font-size: 13px;
 }
 
 input, textarea, select {
   width: 100%;
   padding: 12px 16px;
   border: 2px solid var(--border);
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 12px;
+  font-size: 14px;
   background-color: var(--card);
   color: var(--text);
   transition: all 0.3s ease;
@@ -131,7 +340,6 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   border-color: var(--primary-light);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
 }
 
 .row-2 {
@@ -151,117 +359,33 @@ input:focus, textarea:focus, select:focus {
   min-width: 150px;
 }
 
-button {
-  background-color: var(--primary);
-  color: white;
-  border: none;
-  padding: 14px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-  opacity: 0.9;
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.save-button {
-  background-color: var(--success);
-}
-
-.save-button:hover {
-  background-color: #0d9f6e;
-}
-
-.sheets-button {
-  background-color: #34a853;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-.sheets-button:hover {
-  background-color: #2d8e47;
-}
-
-.analysis-button {
-  background-color: #9333ea;
-}
-
-.analysis-button:hover {
-  background-color: #7e22ce;
-}
-
-.message {
-  padding: 16px;
-  border-radius: 8px;
-  margin-top: 20px;
-  text-align: center;
-  display: none;
-}
-
-.success {
-  background-color: var(--success);
-  color: white;
-}
-
-.error {
-  background-color: var(--error);
-  color: white;
-}
-
-.hidden {
-  display: none;
-}
-
 .calle-periodo-group {
   margin-bottom: 15px;
   border: 1px solid var(--border);
-  padding: 15px;
-  border-radius: 8px;
+  padding: 20px;
+  border-radius: 16px;
   transition: all 0.3s ease;
+  background: rgba(255,255,255,0.02);
 }
 
 .calle-periodo-group:hover {
   border-color: var(--primary-light);
+  background: rgba(139, 92, 246, 0.05);
 }
 
 .eliminar-calle {
-  background-color: var(--error) !important;
-  margin-top: 10px;
-  padding: 8px 12px !important;
-  font-size: 14px !important;
-}
-
-.eliminar-calle:hover {
-  background-color: #dc2626 !important;
+  background: linear-gradient(135deg, var(--error) 0%, #dc2626 100%) !important;
+  margin-top: 15px;
+  padding: 8px 16px !important;
+  font-size: 13px !important;
 }
 
 .campos-extra {
-  background-color: rgba(139,92,246,0.1);
-  padding: 15px;
-  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.05) 0%, rgba(139,92,246,0.02) 100%);
+  padding: 20px;
+  border-radius: 16px;
   margin-top: 20px;
   border: 1px dashed var(--primary);
-  transition: all 0.3s ease;
-}
-
-.campos-extra:hover {
-  border-color: var(--primary-light);
 }
 
 .field-alert {
@@ -272,28 +396,13 @@ button:disabled {
   padding: 4px 8px;
   border-radius: 4px;
   display: none;
-  transition: all 0.3s ease;
 }
 
-.alert-warning {
-  background-color: var(--warning);
-  color: white;
-}
+.alert-warning { background-color: var(--warning); color: white; }
+.alert-error { background-color: var(--error); color: white; }
+.has-warning { border-color: var(--warning) !important; }
+.has-error { border-color: var(--error) !important; }
 
-.alert-error {
-  background-color: var(--error);
-  color: white;
-}
-
-.has-warning {
-  border-color: var(--warning) !important;
-}
-
-.has-error {
-  border-color: var(--error) !important;
-}
-
-/* MODAL DE ÉXITO MODERNO */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -301,33 +410,26 @@ button:disabled {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0,0,0,0.85);
   z-index: 1000;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
 }
 
 .modal-success {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   padding: 40px;
-  border-radius: 24px;
+  border-radius: 28px;
   text-align: center;
   max-width: 450px;
   width: 90%;
-  box-shadow: 0 25px 40px rgba(0,0,0,0.4);
   animation: modalSlideIn 0.3s ease-out;
 }
 
 @keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(-40px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .modal-success h3 {
@@ -339,15 +441,8 @@ button:disabled {
   gap: 12px;
 }
 
-.modal-success h3 i {
-  font-size: 36px;
-}
-
-.modal-success p {
-  font-size: 16px;
-  margin-bottom: 25px;
-  opacity: 0.95;
-}
+.modal-success h3 i { font-size: 40px; }
+.modal-success p { margin-bottom: 25px; opacity: 0.95; }
 
 .modal-success button {
   background-color: white;
@@ -358,180 +453,102 @@ button:disabled {
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
   width: auto;
   display: inline-flex;
 }
 
-.modal-success button:hover {
-  transform: scale(1.05);
-  background-color: #f0fdf4;
-}
+.modal-success button:hover { transform: scale(1.05); background-color: #f0fdf4; }
 
-/* TOAST NOTIFICATION */
 .toast-notification {
   position: fixed;
   bottom: 30px;
   right: 30px;
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
-  padding: 16px 24px;
-  border-radius: 12px;
+  padding: 14px 22px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   z-index: 1100;
   animation: toastSlideIn 0.3s ease-out;
   font-weight: 500;
 }
 
 @keyframes toastSlideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.toast-notification i {
-  font-size: 24px;
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
 .loading-spinner {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 2px solid white;
   border-radius: 50%;
   border-top-color: transparent;
   animation: spin 0.6s linear infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.header-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.no-results {
+  text-align: center;
+  padding: 50px;
+  color: var(--gray);
 }
 
-.header-buttons {
-  display: flex;
-  gap: 3px;
-  flex-wrap: wrap;
-}
+.no-results i { font-size: 48px; margin-bottom: 15px; opacity: 0.5; }
+
+.hidden { display: none; }
 
 @media (max-width: 768px) {
-  .date-time-range {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .row-2 {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-  
-  .alert-panel {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  th, td {
-    padding: 8px;
-  }
-  
-  .detalle-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  h1 {
-    font-size: 24px;
-  }
-  
-  .header-buttons {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .header-buttons button {
-    flex: 1;
-    min-width: 100px;
-    padding: 12px 16px;
-    font-size: 14px;
-  }
-  
-  .toast-notification {
-    bottom: 20px;
-    right: 20px;
-    left: 20px;
-    padding: 12px 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-buttons {
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .header-buttons button {
-    width: 100%;
-  }
+  .date-time-range { flex-direction: column; gap: 10px; }
+  .row-2 { grid-template-columns: 1fr; gap: 15px; }
+  .detalle-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 22px; }
+  .header-buttons { width: 100%; }
+  .header-buttons button { flex: 1; font-size: 12px; }
+  .toast-notification { bottom: 20px; right: 20px; left: 20px; }
 }
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel=stylesheet>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel=stylesheet>
 </head>
 <body>
 <div class=container>
 <div id=reviewAlert class="alert-panel hidden" onclick='window.open("https://docs.google.com/spreadsheets/d/1rmxYCNVaNZM6xjUij4GcMrMrkCwyVs5Gr9mZWB4oJdc/edit?gid=1709665157#gid=1709665157&filter=numero_oficio:~%23","_blank")'>
-<i class="fas fa-exclamation-triangle"></i>
-<span>Casos Pendientes de Revisión: </span>
+<i class="fas fa-exclamation-triangle" style="font-size: 20px;"></i>
+<span>📋 Casos Pendientes de Revisión</span>
 <span id=pendingCasesCount class=review-badge>0</span>
-<span style="margin-left:auto;font-size:.9em">(Click para ver)</span>
+<span style="margin-left:auto;font-size:.8em;opacity:0.9">✧ Click para ver ✧</span>
 </div>
 
 <header>
-<h1><i class="fas fa-file-contract"></i> Sistema de Registro Judicial | Municipio de Chascomús</h1>
+<h1><i class="fas fa-gavel"></i> Sistema de Registro Judicial | Municipio de Chascomús</h1>
 <div class="header-buttons">
-    <button id=btnCargar class=save-button>
-        <i class="fas fa-plus"></i> Cargar
-    </button>
-    <button id=btnBuscar class=sheets-button>
-        <i class="fas fa-search"></i> Buscar
-    </button>
-    <button id=btnAnalisis class="analysis-button" onclick='window.open("https://javiergar900.github.io/dispositivos-eficacia/","_blank")'>
-        <i class="fas fa-chart-bar"></i> Análisis
-    </button>
+    <button id=btnCargar class=save-button><i class="fas fa-plus-circle"></i> Cargar</button>
+    <button id=btnBuscar class=sheets-button><i class="fas fa-search"></i> Buscar</button>
+    <button id=btnAnalisis class="analysis-button" onclick='window.open("https://javiergar900.github.io/dispositivos-eficacia/","_blank")'><i class="fas fa-chart-line"></i> Análisis</button>
 </div>
 </header>
 
 <div class=form-container id=formCargar>
 <form id=oficioForm>
-<button type=button class=sheets-button onclick='window.open("https://docs.google.com/spreadsheets/d/1rmxYCNVaNZM6xjUij4GcMrMrkCwyVs5Gr9mZWB4oJdc/edit?gid=1709665157#gid=1709665157","_blank")'>
-<i class="fab fa-google-drive"></i> Ver Hoja de calculo
-</button>
+<button type=button class=sheets-button onclick='window.open("https://docs.google.com/spreadsheets/d/1rmxYCNVaNZM6xjUij4GcMrMrkCwyVs5Gr9mZWB4oJdc/edit?gid=1709665157#gid=1709665157","_blank")'><i class="fab fa-google-drive"></i> 📊 Ver Hoja de cálculo</button>
 
-<div class=form-group>
-<label for=numero_oficio>N° de Oficio *</label>
+<div class=form-group style="position:relative">
+<label for=numero_oficio>📄 N° de Oficio *</label>
 <input type=text id=numero_oficio required placeholder="IPP N°.....">
-<div id=numero_oficio_alert class="field-alert alert-warning">
-<i class="fas fa-exclamation-triangle"></i>  Este Oficio se cargará de forma provisoria y se contabilizará en el alerta (#). Recuerda actualizarlo luego.
-</div>
+<div id=numero_oficio_alert class="field-alert alert-warning"><i class="fas fa-exclamation-triangle"></i> Este Oficio se cargará de forma provisoria y se contabilizará en el alerta (#).</div>
 </div>
 
-<div class=form-group>
-<label for=numero_identificacion>N° Unico de Identificación *</label>
+<div class=form-group style="position:relative">
+<label for=numero_identificacion>🔢 N° Unico de Identificación *</label>
 <input type=text id=numero_identificacion required placeholder="Ej: IPP N°...">
-<div id=numero_identificacion_alert class="field-alert alert-error">
-<i class="fas fa-times-circle"></i>  Este número ya existe en el sistema.
-</div>
+<div id=numero_identificacion_alert class="field-alert alert-error"><i class="fas fa-times-circle"></i> Este número ya existe en el sistema.</div>
 </div>
 
 <div class="row-2">
@@ -539,135 +556,92 @@ button:disabled {
     <label for=mes_agrupacion>📅 Mes *</label>
     <select id=mes_agrupacion required>
       <option value="">Seleccione Mes</option>
-      <option value="enero">enero</option>
-      <option value="febrero">febrero</option>
-      <option value="marzo">marzo</option>
-      <option value="abril">abril</option>
-      <option value="mayo">mayo</option>
-      <option value="junio">junio</option>
-      <option value="julio">julio</option>
-      <option value="agosto">agosto</option>
-      <option value="septiembre">septiembre</option>
-      <option value="octubre">octubre</option>
-      <option value="noviembre">noviembre</option>
-      <option value="diciembre">diciembre</option>
+      <option value="enero">enero</option><option value="febrero">febrero</option><option value="marzo">marzo</option>
+      <option value="abril">abril</option><option value="mayo">mayo</option><option value="junio">junio</option>
+      <option value="julio">julio</option><option value="agosto">agosto</option><option value="septiembre">septiembre</option>
+      <option value="octubre">octubre</option><option value="noviembre">noviembre</option><option value="diciembre">diciembre</option>
     </select>
   </div>
   <div class=form-group>
     <label for=anio>📆 Año *</label>
     <select id=anio required>
       <option value="">Seleccione Año</option>
-      <option value="2023">2023</option>
-      <option value="2024">2024</option>
-      <option value="2025">2025</option>
-      <option value="2026">2026</option>
-      <option value="2027">2027</option>
-      <option value="2028">2028</option>
+      <option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option>
+      <option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option>
     </select>
   </div>
 </div>
 
 <div class=form-group>
-<label for=fiscalia>Fiscalía Interviniente *</label>
+<label for=fiscalia>⚖️ Fiscalía Interviniente *</label>
 <select id=fiscalia required onchange=mostrarCampoOtraFiscalia()>
 <option value="">Seleccione...</option>
 <option value="U.F.I N°10">U.F.I N°10</option>
 <option value="U.F.I N°9">U.F.I N°9</option>
 <option value="ESPECIALIZADA EN NARCOTRÁFICO">ESP. NARCOTRÁFICO</option>
-<option value=OTRO>OTRO (Especificar)</option>
+<option value="OTRO">OTRO (Especificar)</option>
 </select>
 </div>
 
 <div id=otraFiscaliaGroup class="form-group hidden">
-<label for=otra_fiscalia>Especifique *</label>
+<label for=otra_fiscalia>✏️ Especifique *</label>
 <input type=text id=otra_fiscalia>
 </div>
 
 <div class=form-group>
-<label for=caratula>Carátula *</label>
+<label for=caratula>📑 Carátula *</label>
 <input type=text id=caratula required placeholder="Ej: Robo agravado">
 </div>
 
 <div class=form-group>
-<label for=caratula_agrupada>📋 Agrupación de Carátula *</label>
+<label for=caratula_agrupada>🏷️ Agrupación de Carátula *</label>
 <select id=caratula_agrupada required>
 <option value="">Seleccione...</option>
-<option value="ROBO">ROBO</option>
-<option value="HURTO">HURTO</option>
-<option value="LESIONES">LESIONES</option>
-<option value="OTRO">OTRO</option>
-<option value="AMENAZAS">AMENAZAS</option>
-<option value="LEY 23.737">LEY 23.737</option>
+<option value="ROBO">🔴 ROBO</option><option value="HURTO">🟠 HURTO</option>
+<option value="LESIONES">🟡 LESIONES</option><option value="OTRO">⚪ OTRO</option>
+<option value="AMENAZAS">🔵 AMENAZAS</option><option value="LEY 23.737">🟣 LEY 23.737</option>
 </select>
 </div>
 
 <div class=form-group>
-<label>Calles y Períodos Solicitados *</label>
+<label>📍 Calles y Períodos Solicitados *</label>
 <div id=calles-container>
 <div class=calle-periodo-group>
-<div class=form-group>
-<label>Calle(s)</label>
-<textarea class=calle-text rows=2 required placeholder="Ej: Av. Lastra 1200"></textarea>
-</div>
+<div class=form-group><label>Calle(s)</label><textarea class=calle-text rows=2 required placeholder="Ej: Av. Lastra 1200"></textarea></div>
 <div class=date-time-range>
-<div>
-<label>Fecha Inicio</label>
-<input type=date class=fecha-inicio required>
-</div>
-<div>
-<label>Hora Inicio</label>
-<input type=time class=hora-inicio required>
-</div>
-<div>
-<label>Fecha Fin</label>
-<input type=date class=fecha-fin required>
-</div>
-<div>
-<label>Hora Fin</label>
-<input type=time class=hora-fin required>
+<div><label>📅 Fecha Inicio</label><input type=date class=fecha-inicio required></div>
+<div><label>⏰ Hora Inicio</label><input type=time class=hora-inicio required></div>
+<div><label>📅 Fecha Fin</label><input type=date class=fecha-fin required></div>
+<div><label>⏰ Hora Fin</label><input type=time class=hora-fin required></div>
 </div>
 </div>
 </div>
-</div>
-<button type=button id=agregar-calle style="margin-top:10px">
-<i class="fas fa-plus"></i> Agregar otra calle
-</button>
+<button type=button id=agregar-calle style="margin-top:10px; background: linear-gradient(135deg, #3b82f6, #2563eb);"><i class="fas fa-plus"></i> Agregar otra calle</button>
 </div>
 
 <div class=campos-extra>
-<div class=form-group>
-<label for=camaras_aportadas>🎥 Cámaras Aportadas *</label>
-<textarea id=camaras_aportadas rows=3 required placeholder="Códigos de cámaras"></textarea>
+<div class=form-group><label for=camaras_aportadas>🎥 Cámaras Aportadas *</label><textarea id=camaras_aportadas rows=3 required placeholder="Códigos de cámaras"></textarea></div>
+<div class=form-group><label for=datos_imputado>👤 Datos del Imputado</label><textarea id=datos_imputado rows=2 placeholder="Nombre, DNI, domicilio, etc."></textarea></div>
+<div class=form-group><label for=observaciones>📝 Observaciones</label><textarea id=observaciones rows=2 placeholder="Detalles..."></textarea></div>
 </div>
 
 <div class=form-group>
-<label for=datos_imputado>👤 Datos del Imputado</label>
-<textarea id=datos_imputado rows=2 placeholder="Nombre, DNI, domicilio, etc."></textarea>
-</div>
-
-<div class=form-group>
-<label for=observaciones>📝 Observaciones</label>
-<textarea id=observaciones rows=2 placeholder="Detalles..."></textarea>
-</div>
-</div>
-
-<div class=form-group>
-<label for=estado_material>Estado del Material Filmico *</label>
+<label for=estado_material>💿 Estado del Material Filmico *</label>
 <select id=estado_material required onchange=mostrarCamposEstado()>
 <option value="">Seleccione...</option>
-<option value="Entrega Normal">Entrega Normal</option>
-<option value="Rechazado por Irregularidades">Rechazado</option>
-<option value="No se dispone de material"> Material No disponible</option>
+<option value="Entrega Normal">✅ Entrega Normal</option>
+<option value="Rechazado por Irregularidades">❌ Rechazado</option>
+<option value="No se dispone de material">⚠️ Material No disponible</option>
 </select>
 </div>
 
 <div id=motivoRechazoGroup class="form-group hidden">
-<label for=motivo_rechazo>Motivo de Rechazo *</label>
+<label for=motivo_rechazo>📋 Motivo de Rechazo *</label>
 <textarea id=motivo_rechazo rows=2 placeholder="Irregularidades..."></textarea>
 </div>
 
 <div id=tipoNoDisponibleGroup class="form-group hidden">
-<label for=tipo_no_disponible>Tipo *</label>
+<label for=tipo_no_disponible>🔍 Tipo *</label>
 <select id=tipo_no_disponible>
 <option value="">Seleccione...</option>
 <option value="Cámara sin funcionamiento">Cámara sin funcionamiento</option>
@@ -676,65 +650,30 @@ button:disabled {
 </select>
 </div>
 
-<button type=submit id=btnGuardar class=save-button>
-<i class="fas fa-save"></i> Guardar
-</button>
+<button type=submit id=btnGuardar class=save-button><i class="fas fa-save"></i> Guardar Registro</button>
 </form>
 </div>
 
 <div class=form-container id=formBuscar style="display:none">
-<h2><i class="fas fa-search"></i> Buscar Oficios</h2>
-
-<div class=form-group>
-<label for=buscarTexto>Buscar por N° de Oficio, Fiscalía, Carátula o Datos del Imputado</label>
-<input type=text id=buscarTexto placeholder="Ej: IPP N°... / U.F.I N°10 / Robo...">
+<div class="search-card">
+<div class="search-title"><i class="fas fa-filter"></i><span>Filtros de Búsqueda</span></div>
+<div class="search-filters">
+<div class="filter-group"><label><i class="fas fa-search"></i> Búsqueda General</label><input type=text id=buscarTexto placeholder="N° Oficio, Fiscalía, Carátula o Imputado..."></div>
+<div class="filter-group"><label><i class="fas fa-id-card"></i> N° Identificación</label><input type=text id=buscarIdentificacion placeholder="IPP N°..."></div>
+<div class="filter-group"><label><i class="fas fa-calendar-alt"></i> Desde</label><input type=date id=fechaDesde></div>
+<div class="filter-group"><label><i class="fas fa-calendar-alt"></i> Hasta</label><input type=date id=fechaHasta></div>
 </div>
-
-<div class=form-group>
-<label for=buscarIdentificacion>Buscar por N° de Identificación</label>
-<input type=text id=buscarIdentificacion placeholder="Ej: IPP N°...">
+<button id=btnBuscarOficios class=save-button style="width: 100%;"><i class="fas fa-search"></i> Buscar Oficios</button>
 </div>
-
-<div class=date-time-range>
-<div class=form-group>
-<label for=fechaDesde>Desde</label>
-<input type=date id=fechaDesde>
-</div>
-<div class=form-group>
-<label for=fechaHasta>Hasta</label>
-<input type=date id=fechaHasta>
+<div id=resultados style="margin-top:20px"></div>
 </div>
 </div>
 
-<button id=btnBuscarOficios class=save-button>
-<i class="fas fa-search"></i> Buscar
-</button>
-
-<div id=resultados style="margin-top:20px">
-<table>
-<thead>
-<tr>
-<th style="width:120px">N° Oficio</th>
-<th style="width:100px">Fecha</th>
-<th>N° Identificación</th>
-<th>Carátula</th>
-<th>Fiscalía</th>
-<th style="width:50px"></th>
-</tr>
-</thead>
-<tbody id=tablaResultados>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-
-<!-- MODAL DE ÉXITO MODERNO -->
 <div id=successModal class=modal-overlay>
 <div class=modal-success>
 <h3><i class="fas fa-check-circle"></i> ¡Éxito!</h3>
-<p>El oficio se ha guardado correctamente en la base de datos</p>
-<button onclick="document.getElementById('successModal').style.display='none'">Aceptar</button>
+<p>✓ El oficio se ha guardado correctamente<br>✓ Los datos ya están en la base de datos</p>
+<button onclick="document.getElementById('successModal').style.display='none'">Excelente</button>
 </div>
 </div>
 
@@ -747,7 +686,6 @@ let isSubmitting = false;
 function mostrarCampoOtraFiscalia() {
     const fiscaliaSelect = document.getElementById("fiscalia");
     const otraFiscaliaGroup = document.getElementById("otraFiscaliaGroup");
-    
     if (fiscaliaSelect.value === "OTRO") {
         otraFiscaliaGroup.classList.remove("hidden");
     } else {
@@ -756,22 +694,28 @@ function mostrarCampoOtraFiscalia() {
     }
 }
 
+function mostrarCamposEstado() {
+    const estado = document.getElementById("estado_material").value;
+    document.getElementById("motivoRechazoGroup").classList.add("hidden");
+    document.getElementById("tipoNoDisponibleGroup").classList.add("hidden");
+    if(estado === "Rechazado por Irregularidades") {
+        document.getElementById("motivoRechazoGroup").classList.remove("hidden");
+    } else if(estado === "No se dispone de material") {
+        document.getElementById("tipoNoDisponibleGroup").classList.remove("hidden");
+    }
+}
+
 function showToast(message, type = 'success') {
     const existingToast = document.querySelector('.toast-notification');
     if(existingToast) existingToast.remove();
-    
     const toast = document.createElement('div');
     toast.className = 'toast-notification';
-    toast.innerHTML = `
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-        <span>${message}</span>
-    `;
+    toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i><span>${message}</span>`;
     document.body.appendChild(toast);
-    
     setTimeout(() => {
         toast.style.animation = 'toastSlideIn 0.3s ease-out reverse';
         setTimeout(() => toast.remove(), 300);
-    }, 3000);
+    }, 3500);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -811,97 +755,66 @@ document.getElementById("btnBuscarOficios").addEventListener("click", () => {
     const hasta = document.getElementById("fechaHasta").value;
     
     const resultados = existingData.filter(item => {
-        const cumpleTexto = texto ?
-            (item.numero_oficio?.toLowerCase().includes(texto) ||
-             item.fiscalia?.toLowerCase().includes(texto) ||
-             item.caratula?.toLowerCase().includes(texto) ||
-             item.datos_imputado?.toLowerCase().includes(texto)) : true;
-        
-        const cumpleIdentificacion = identificacion ?
-            item.numero_identificacion?.toLowerCase().includes(identificacion) : true;
-        
+        const cumpleTexto = texto ? (item.numero_oficio?.toLowerCase().includes(texto) || item.fiscalia?.toLowerCase().includes(texto) || item.caratula?.toLowerCase().includes(texto) || item["datos-imputado"]?.toLowerCase().includes(texto)) : true;
+        const cumpleIdentificacion = identificacion ? item.numero_identificacion?.toLowerCase().includes(identificacion) : true;
         let cumpleFecha = true;
         if(desde && hasta && item.fechaObj) {
             const desdeDate = new Date(desde);
             const hastaDate = new Date(hasta);
             cumpleFecha = item.fechaObj >= desdeDate && item.fechaObj <= hastaDate;
         }
-        
         return cumpleTexto && cumpleIdentificacion && cumpleFecha;
     });
-    
     mostrarResultados(resultados);
 });
 
 function mostrarResultados(data) {
-    const tbody = document.getElementById("tablaResultados");
-    tbody.innerHTML = "";
-    
+    const resultadosDiv = document.getElementById("resultados");
     if(data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan=6 style="text-align:center;padding:20px">No se encontraron resultados</td></tr>`;
+        resultadosDiv.innerHTML = `<div class="resultados-container"><div class="no-results"><i class="fas fa-inbox"></i><h3>No se encontraron resultados</h3><p>Intentá con otros filtros de búsqueda</p></div></div>`;
         return;
     }
     
+    let html = `<div class="resultados-container"><div class="resultados-header"><h3><i class="fas fa-chart-simple"></i> Resultados encontrados</h3><span>${data.length} registro(s)</span></div><table><thead><tr><th>N° Oficio</th><th>Fecha Carga</th><th>N° Identificación</th><th>Carátula</th><th>Fiscalía</th><th style="width:40px"></th></tr></thead><tbody>`;
+    
     data.forEach((item, index) => {
-        const tr = document.createElement("tr");
-        tr.style.cursor = "pointer";
-        tr.innerHTML = `
-            <td>${item.numero_oficio || "-"}</td>
-            <td>${item.fecha_carga?.split(' ')[0] || "-"}</td>
-            <td>${item.numero_identificacion || "-"}</td>
-            <td>${item.caratula || "-"}</td>
-            <td>${item.fiscalia || "-"}</td>
-            <td style="text-align:center"><i class="fas fa-chevron-down"></i></td>
-        `;
+        // CORREGIDO: usar los nombres correctos de los campos en la base
+        const estadoMaterial = item["estado-material"] || "No especificado";
+        const datosImputado = item["datos-imputado"] || "No especificado";
+        const camaras = item["camaras_aportadas"] || "No especificado";
+        const calles = item["calles"] || "No especificado";
+        const observaciones = item["observaciones"] || "Sin observaciones";
         
-        const trDetalle = document.createElement("tr");
-        trDetalle.className = "detalle-row";
-        trDetalle.innerHTML = `
-            <td colspan=6>
-                <div class="detalle-content">
-                    <div class="detalle-grid">
-                        <div class="detalle-section section-camaras">
-                            <h4><i class="fas fa-video"></i> Cámaras aportadas</h4>
-                            <p>${item.camaras_aportadas || "No especificado"}</p>
-                        </div>
-                        <div class="detalle-section section-estado">
-                            <h4><i class="fas fa-info-circle"></i> Estado del material</h4>
-                            <p>${item.estado_material || "No especificado"}</p>
-                        </div>
-                        <div class="detalle-section section-calles">
-                            <h4><i class="fas fa-road"></i> Calles solicitadas</h4>
-                            <p>${item.calles || "No especificado"}</p>
-                        </div>
-                        <div class="detalle-section section-periodo">
-                            <h4><i class="fas fa-clock"></i> Período solicitado</h4>
-                            <p>${item.fecha_inicio ? `${formatDate(item.fecha_inicio)} ${item.hora_inicio || ""}` : "No especificado"} <strong>Hasta</strong> ${item.fecha_fin ? `${formatDate(item.fecha_fin)} ${item.hora_fin || ""}` : "No especificado"}</p>
-                        </div>
-                        <div class="detalle-section section-fecha">
-                            <h4><i class="fas fa-calendar-day"></i> Fecha de carga</h4>
-                            <p>${item.fecha_carga || "No especificado"}</p>
-                        </div>
-                        <div class="detalle-section section-imputado">
-                            <h4><i class="fas fa-user-graduate"></i> Datos del Imputado</h4>
-                            <p>${item.datos_imputado || "No especificado"}</p>
-                        </div>
-                        <div class="detalle-section section-observaciones">
-                            <h4><i class="fas fa-comment-alt"></i> Observaciones</h4>
-                            <p>${item.observaciones || "Sin observaciones"}</p>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        `;
-        
-        tr.addEventListener("click", () => {
-            trDetalle.classList.toggle("visible");
-            const icon = tr.querySelector("i");
-            icon.classList.toggle("fa-chevron-down");
-            icon.classList.toggle("fa-chevron-up");
+        html += `<tr class="fila-principal" data-index="${index}" style="cursor:pointer"><td><strong>${item.numero_oficio || "-"}</strong></td><td>${item.fecha_carga?.split(' ')[0] || "-"}</td><td>${item.numero_identificacion || "-"}</td><td>${item.caratula || "-"}</td><td>${item.fiscalia || "-"}</td><td style="text-align:center"><i class="fas fa-chevron-down"></i></td></tr>
+        <tr class="detalle-row" data-parent="${index}"><td colspan="6"><div class="detalle-content"><div class="detalle-grid">
+        <div class="detalle-section section-camaras"><h4><i class="fas fa-video"></i> Cámaras aportadas</h4><p>${camaras}</p></div>
+        <div class="detalle-section section-estado"><h4><i class="fas fa-info-circle"></i> Estado del material</h4><p>${estadoMaterial}</p></div>
+        <div class="detalle-section section-calles"><h4><i class="fas fa-road"></i> Calles solicitadas</h4><p>${calles}</p></div>
+        <div class="detalle-section section-periodo"><h4><i class="fas fa-clock"></i> Período solicitado</h4><p>${item.fecha_inicio ? `${formatDate(item.fecha_inicio)} ${item.hora_inicio || ""}` : "No especificado"} <br><strong>→ Hasta →</strong><br> ${item.fecha_fin ? `${formatDate(item.fecha_fin)} ${item.hora_fin || ""}` : "No especificado"}</p></div>
+        <div class="detalle-section section-fecha"><h4><i class="fas fa-calendar-day"></i> Fecha de carga</h4><p>${item.fecha_carga || "No especificado"}</p></div>
+        <div class="detalle-section section-imputado"><h4><i class="fas fa-user-graduate"></i> Datos del Imputado</h4><p>${datosImputado}</p></div>
+        <div class="detalle-section section-observaciones"><h4><i class="fas fa-comment-alt"></i> Observaciones</h4><p>${observaciones}</p></div>
+        </div></div></td></tr>`;
+    });
+    
+    html += `</tbody></table></div>`;
+    resultadosDiv.innerHTML = html;
+    
+    document.querySelectorAll('.fila-principal').forEach(row => {
+        row.addEventListener('click', function() {
+            const index = this.getAttribute('data-index');
+            const detalleRow = document.querySelector(`.detalle-row[data-parent="${index}"]`);
+            const icon = this.querySelector('i');
+            if(detalleRow.classList.contains('visible')) {
+                detalleRow.classList.remove('visible');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                detalleRow.classList.add('visible');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
         });
-        
-        tbody.appendChild(tr);
-        tbody.appendChild(trDetalle);
     });
 }
 
@@ -910,9 +823,7 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     if(isNaN(date.getTime())) {
         const [year, month, day] = dateString.split('-');
-        if(year && month && day) {
-            return `${day}/${month}/${year}`;
-        }
+        if(year && month && day) return `${day}/${month}/${year}`;
         return dateString; 
     }
     const day = date.getDate().toString().padStart(2, '0');
@@ -921,40 +832,18 @@ function formatDate(dateString) {
     return `${day}/${month}/${year}`;
 }
 
-function mostrarCamposEstado() {
-    const estado = document.getElementById("estado_material").value;
-    
-    document.getElementById("motivoRechazoGroup").classList.add("hidden");
-    document.getElementById("tipoNoDisponibleGroup").classList.add("hidden");
-
-    if(estado === "Rechazado por Irregularidades") {
-        document.getElementById("motivoRechazoGroup").classList.remove("hidden");
-    } else if(estado === "No se dispone de material") {
-        document.getElementById("tipoNoDisponibleGroup").classList.remove("hidden");
-    }
-}
-
 function updatePendingCases() {
-    pendingCases = existingData.filter(item =>
-        item.numero_oficio && item.numero_oficio.includes("#")
-    ).length;
-    
+    pendingCases = existingData.filter(item => item.numero_oficio && item.numero_oficio.includes("#")).length;
     const alertPanel = document.getElementById("reviewAlert");
     const countBadge = document.getElementById("pendingCasesCount");
-    
     countBadge.textContent = pendingCases;
-    
-    if(pendingCases > 0) {
-        alertPanel.classList.remove("hidden");
-    } else {
-        alertPanel.classList.add("hidden");
-    }
+    if(pendingCases > 0) alertPanel.classList.remove("hidden");
+    else alertPanel.classList.add("hidden");
 }
 
 function setupFieldMonitoring() {
     const numeroOficioInput = document.getElementById("numero_oficio");
     const numeroOficioAlert = document.getElementById("numero_oficio_alert");
-    
     numeroOficioInput.addEventListener("input", function() {
         if(this.value.includes("#")) {
             this.classList.add("has-warning");
@@ -964,29 +853,17 @@ function setupFieldMonitoring() {
             numeroOficioAlert.style.display = "none";
         }
     });
-
     const numeroIdInput = document.getElementById("numero_identificacion");
     const numeroIdAlert = document.getElementById("numero_identificacion_alert");
-    
-    numeroIdInput.addEventListener("input", function() {
-        if(this.value.length >= 1) { 
-            checkForDuplicateId();
-        } else {
-            numeroIdInput.classList.remove("has-error");
-            numeroIdAlert.style.display = "none";
-        }
-    });
+    numeroIdInput.addEventListener("input", function() { checkForDuplicateId(); });
 }
 
 function checkForDuplicateId() {
     const numeroIdInput = document.getElementById("numero_identificacion");
     const numeroIdAlert = document.getElementById("numero_identificacion_alert");
     const idValue = numeroIdInput.value;
-    
     if(!idValue) return false;
-    
     const isDuplicate = existingData.some(item => item.numero_identificacion === idValue);
-    
     if(isDuplicate) {
         numeroIdInput.classList.add("has-error");
         numeroIdAlert.style.display = "block";
@@ -996,13 +873,6 @@ function checkForDuplicateId() {
         numeroIdAlert.style.display = "none";
         return false;
     }
-}
-
-function generarID() {
-    const fecha = new Date();
-    const fechaStr = fecha.toISOString().slice(0,10).replace(/-/g,"");
-    const randomHex = Math.floor(Math.random() * 0xFFFF).toString(16).toUpperCase().padStart(4,"0");
-    return `OF-${fechaStr}-${randomHex}`;
 }
 
 function getFechaHoraActual() {
@@ -1019,112 +889,45 @@ document.getElementById("agregar-calle").addEventListener("click", function() {
     const container = document.getElementById("calles-container");
     const nuevoGrupo = document.createElement("div");
     nuevoGrupo.className = "calle-periodo-group";
-    
-    nuevoGrupo.innerHTML = `
-        <div class=form-group>
-            <label>Calle(s)</label>
-            <textarea class=calle-text rows=2 required placeholder="Ej: Av. Corrientes 1200"></textarea>
-        </div>
-        <div class=date-time-range>
-            <div>
-                <label>Fecha Inicio</label>
-                <input type=date class=fecha-inicio required>
-            </div>
-            <div>
-                <label>Hora Inicio</label>
-                <input type=time class=hora-inicio required>
-            </div>
-            <div>
-                <label>Fecha Fin</label>
-                <input type=date class=fecha-fin required>
-            </div>
-            <div>
-                <label>Hora Fin</label>
-                <input type=time class=hora-fin required>
-            </div>
-        </div>
-        <button type=button class=eliminar-calle>
-            <i class="fas fa-trash"></i> Eliminar
-        </button>
-    `;
-    
+    nuevoGrupo.innerHTML = `<div class=form-group><label>Calle(s)</label><textarea class=calle-text rows=2 required placeholder="Ej: Av. Corrientes 1200"></textarea></div>
+        <div class=date-time-range><div><label>📅 Fecha Inicio</label><input type=date class=fecha-inicio required></div>
+        <div><label>⏰ Hora Inicio</label><input type=time class=hora-inicio required></div>
+        <div><label>📅 Fecha Fin</label><input type=date class=fecha-fin required></div>
+        <div><label>⏰ Hora Fin</label><input type=time class=hora-fin required></div></div>
+        <button type=button class=eliminar-calle><i class="fas fa-trash"></i> Eliminar</button>`;
     container.appendChild(nuevoGrupo);
-    
-    nuevoGrupo.querySelector(".eliminar-calle").addEventListener("click", function() {
-        if(confirm("¿Eliminar grupo?")) {
-            nuevoGrupo.remove();
-        }
-    });
+    nuevoGrupo.querySelector(".eliminar-calle").addEventListener("click", function() { if(confirm("¿Eliminar grupo?")) nuevoGrupo.remove(); });
 });
 
 document.getElementById("oficioForm").addEventListener("submit", async function(e) {
     e.preventDefault();
-    
-    if(isSubmitting) {
-        showToast("Espere, ya se está guardando...", "warning");
-        return;
-    }
-    
-    if(!document.getElementById("mes_agrupacion").value) {
-        alert("Seleccione un MES");
-        document.getElementById("mes_agrupacion").focus();
-        return;
-    }
-    
-    if(!document.getElementById("anio").value) {
-        alert("Seleccione un AÑO");
-        document.getElementById("anio").focus();
-        return;
-    }
-    
-    if(!document.getElementById("caratula_agrupada").value) {
-        alert("Seleccione una AGRUPACIÓN DE CARÁTULA");
-        document.getElementById("caratula_agrupada").focus();
-        return;
-    }
-    
-    if(checkForDuplicateId()) {
-        alert("Error: N° de ID duplicado");
-        document.getElementById("numero_identificacion").focus();
-        return;
-    }
+    if(isSubmitting) { showToast("⏳ Espere, ya se está guardando...", "warning"); return; }
+    if(!document.getElementById("mes_agrupacion").value) { alert("📅 Seleccione un MES"); document.getElementById("mes_agrupacion").focus(); return; }
+    if(!document.getElementById("anio").value) { alert("📆 Seleccione un AÑO"); document.getElementById("anio").focus(); return; }
+    if(!document.getElementById("caratula_agrupada").value) { alert("🏷️ Seleccione una AGRUPACIÓN DE CARÁTULA"); document.getElementById("caratula_agrupada").focus(); return; }
+    if(checkForDuplicateId()) { alert("⚠️ Error: N° de ID duplicado"); document.getElementById("numero_identificacion").focus(); return; }
     
     const fiscaliaSelect = document.getElementById("fiscalia");
     let fiscaliaValue = fiscaliaSelect.value;
-    
     if(fiscaliaValue === "OTRO") {
         const otraFiscalia = document.getElementById("otra_fiscalia").value.trim();
-        if(!otraFiscalia) {
-            alert("Debe especificar la fiscalía cuando selecciona 'OTRO'");
-            document.getElementById("otra_fiscalia").focus();
-            return;
-        }
+        if(!otraFiscalia) { alert("✏️ Debe especificar la fiscalía cuando selecciona 'OTRO'"); document.getElementById("otra_fiscalia").focus(); return; }
         fiscaliaValue = `OTRO: ${otraFiscalia}`; 
     }
     
     const estadoMaterial = document.getElementById("estado_material").value;
     let detallesEstado = "";
-    
     if(estadoMaterial === "Rechazado por Irregularidades") {
-        if(!document.getElementById("motivo_rechazo").value) {
-            alert("Debe especificar el motivo de rechazo");
-            document.getElementById("motivo_rechazo").focus();
-            return;
-        }
+        if(!document.getElementById("motivo_rechazo").value) { alert("📋 Debe especificar el motivo de rechazo"); document.getElementById("motivo_rechazo").focus(); return; }
         detallesEstado = `Rechazado: ${document.getElementById("motivo_rechazo").value}`;
     } else if(estadoMaterial === "No se dispone de material") {
-        if(!document.getElementById("tipo_no_disponible").value) {
-            alert("Debe especificar el tipo de no disponibilidad");
-            document.getElementById("tipo_no_disponible").focus();
-            return;
-        }
+        if(!document.getElementById("tipo_no_disponible").value) { alert("🔍 Debe especificar el tipo de no disponibilidad"); document.getElementById("tipo_no_disponible").focus(); return; }
         detallesEstado = `No disponible: ${document.getElementById("tipo_no_disponible").value}`;
     } else {
         detallesEstado = estadoMaterial;
     }
     
     const grupos = document.querySelectorAll(".calle-periodo-group");
-    
     isSubmitting = true;
     const btnGuardar = document.getElementById("btnGuardar");
     const originalBtnHtml = btnGuardar.innerHTML;
@@ -1133,7 +936,6 @@ document.getElementById("oficioForm").addEventListener("submit", async function(
     
     try {
         for(const grupo of grupos) {
-            // ORDEN EXACTO: mes-agrupacion, año, fecha_carga, numero_oficio, numero_identificacion, caratula, caratula-agrupada, fiscalia, calles, fecha_inicio, hora_inicio, fecha_fin, hora_fin, camaras_aportadas, datos-imputado, observaciones, estado-material
             const formData = {
                 "mes-agrupacion": document.getElementById("mes_agrupacion").value,
                 "año": document.getElementById("anio").value,
@@ -1153,42 +955,23 @@ document.getElementById("oficioForm").addEventListener("submit", async function(
                 "observaciones": document.getElementById("observaciones").value,
                 "estado-material": detallesEstado
             };
-
-            const response = await fetch(SHEETBEST_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if(!response.ok) {
-                throw new Error("Error al guardar");
-            }
+            const response = await fetch(SHEETBEST_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(formData) });
+            if(!response.ok) throw new Error("Error al guardar");
         }
-
         const refreshResponse = await fetch(SHEETBEST_URL);
         existingData = await refreshResponse.json();
         updatePendingCases();
-        
-        // Mostrar modal de éxito MODERNO
         document.getElementById("successModal").style.display = "flex";
-        
-        // También mostrar toast
-        showToast("¡Oficio guardado con éxito!", "success");
-        
-        // Resetear formulario
+        showToast("✅ ¡Oficio guardado con éxito!", "success");
         document.getElementById("oficioForm").reset();
         document.getElementById("otraFiscaliaGroup").classList.add("hidden");
         document.getElementById("motivoRechazoGroup").classList.add("hidden");
         document.getElementById("tipoNoDisponibleGroup").classList.add("hidden");
-        
         document.getElementById("mes_agrupacion").value = "";
         document.getElementById("anio").value = "";
         document.getElementById("caratula_agrupada").value = "";
-        
     } catch(error) {
-        showToast(`Error: ${error.message || "Revise conexión"}`, "error");
+        showToast(`❌ Error: ${error.message || "Revise conexión"}`, "error");
         console.error("Error:", error);
     } finally {
         isSubmitting = false;
